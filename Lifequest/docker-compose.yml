@@ -1,0 +1,56 @@
+version: "3.8"
+services:
+  app:
+    container_name: lifequest-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+      - 7017:7017
+    networks:
+      - lifequest_net
+    depends_on:
+      - db
+    tty: true
+    volumes:
+      - .:/lifequest
+    command: dotnet watch run
+
+  db:
+    container_name: lifequest-db
+    platform: linux/x86_64
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lifequest
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - lifequest_net
+
+  redis:
+    container_name: lifequest-redis
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./data/redis:/data"
+      - "./redis.conf:/etc/redis.conf"
+
+  # firebase:
+  #   container_name: teamev_firebase
+  #   image: shoki2578/teamev-firebase
+  #   ports:
+  #    - "3000:3000"
+
+networks:
+  lifequest_net:
+    driver: bridge

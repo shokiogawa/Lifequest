@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lifequest", "Lifequest\Lifequest.csproj", "{44E1D051-B1C5-40E7-BE62-B4C404B6579D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lifequest.Test", "Lifequest.Test\Lifequest.Test.csproj", "{95535021-CB6F-42F4-9CFE-BC4B8D3D2D39}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44E1D051-B1C5-40E7-BE62-B4C404B6579D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44E1D051-B1C5-40E7-BE62-B4C404B6579D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44E1D051-B1C5-40E7-BE62-B4C404B6579D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44E1D051-B1C5-40E7-BE62-B4C404B6579D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95535021-CB6F-42F4-9CFE-BC4B8D3D2D39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95535021-CB6F-42F4-9CFE-BC4B8D3D2D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95535021-CB6F-42F4-9CFE-BC4B8D3D2D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95535021-CB6F-42F4-9CFE-BC4B8D3D2D39}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
