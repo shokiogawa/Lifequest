@@ -195,6 +195,45 @@ namespace Lifequest.Migrations
                     b.ToTable("families");
                 });
 
+            modelBuilder.Entity("Lifequest.Src.Infrastructure.Db.Tables.FixedCostTable", b =>
+                {
+                    b.Property<uint>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int unsigned")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<uint>("Expose")
+                        .HasColumnType("int unsigned")
+                        .HasColumnName("expense");
+
+                    b.Property<uint>("FamilyId")
+                        .HasColumnType("int unsigned")
+                        .HasColumnName("family_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(128)")
+                        .HasColumnName("name");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("fixed_costs");
+                });
+
             modelBuilder.Entity("Lifequest.Src.Infrastructure.Db.Tables.ScheduleTable", b =>
                 {
                     b.Property<uint>("Id")

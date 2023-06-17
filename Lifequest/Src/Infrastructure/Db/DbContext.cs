@@ -15,9 +15,11 @@ public class LifequestDbContext : DbContext
 
   public DbSet<BankHistoryTable> BankHistoryTable{get; set;}
 
+  public DbSet<FixedCostTable> FixedCostTable {get; set;}
+
 
    // 接続文字列
-   readonly string connectionString = "server=lifequest-db;user=user;password=secret;database=lifequest";
+   readonly string connectionString = "server=localhost;user=user;password=secret;database=lifequest";
   // Mysql バージョン
   readonly MySqlServerVersion serverVersion = new (new Version(5, 7, 0));
   public LifequestDbContext()

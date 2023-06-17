@@ -17,6 +17,7 @@ public class AutoMapperConfig :  Profile
       // アプリ内 → ブラウザ
       cfg.CreateMap<User, UserViewModel>();
       cfg.CreateMap<Bank, BankViewModel>();
+      cfg.CreateMap<FixedCost, FixedCostViewModel>();
 
       // アプリ → DB
       cfg.CreateMap<User, UserTable>();
@@ -24,6 +25,7 @@ public class AutoMapperConfig :  Profile
       cfg.CreateMap<FamilyMember, FamilyMembersTable>();
       cfg.CreateMap<Bank, BankTable>();
       cfg.CreateMap<BankHistory, BankHistoryTable>();
+      cfg.CreateMap<FixedCost, FixedCostTable>();
     });
     return config.CreateMapper();
   }
