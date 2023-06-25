@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - ConnectionStrings__Mysql=server=lifequest-db;user=user;password=secret;database=lifequest
+      - Redis__ConnectionStrings=lifequest-redis
     ports:
       - 80:80
       - 7017:7017
@@ -12,6 +15,7 @@ services:
       - lifequest_net
     depends_on:
       - db
+      - redis
     tty: true
     volumes:
       - .:/lifequest
@@ -44,6 +48,8 @@ services:
     volumes:
       - "./data/redis:/data"
       - "./redis.conf:/etc/redis.conf"
+    networks:
+      - lifequest_net
 
   # firebase:
   #   container_name: teamev_firebase

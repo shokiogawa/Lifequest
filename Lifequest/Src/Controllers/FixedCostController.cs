@@ -26,6 +26,20 @@ public class FixedCostController : ControllerBase
   [HttpGet]
   public async Task<ActionResult<List<FixedCostViewModel>>> GetAsync([FromQuery] int familyId)
   {
+    // テスト空間⇩⇩⇩
+    // await HttpContext.Session.LoadAsync();
+    // var storeValue = HttpContext.Session.GetString("test");
+    // Console.WriteLine(storeValue);
+    // if (storeValue == null)
+    // {
+    //   Console.WriteLine("保存しにいってるよ");
+    //   HttpContext.Session.SetString("test", "テストだよーーーー");
+
+    //   // Redisにデータを保存する
+    //   await HttpContext.Session.CommitAsync();
+    // }
+    // テスト空間⇧⇧⇧
+
     var fixedCostList = await _fixedCostQueryService.GetByFamilyId(familyId);
     var fixedCostVmList = fixedCostList.Select(fixedCost => _mapper.Map<FixedCostViewModel>(fixedCost)).ToList();
     return fixedCostVmList;
