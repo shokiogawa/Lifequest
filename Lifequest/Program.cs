@@ -13,6 +13,7 @@ using Lifequest.Src;
 using Microsoft.EntityFrameworkCore;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
+using Lifequest.Src.Domain.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,11 +87,14 @@ builder.Services
         // トークン認証失敗時
         OnAuthenticationFailed = context => 
         {
+            Console.WriteLine("認証失敗");
             return Task.CompletedTask;
         },
         // トークン認証に成功時
         OnTokenValidated = context => 
         {
+            Console.WriteLine(Task.CurrentId);
+            Console.WriteLine("認証成功");
             return Task.CompletedTask;
         },
         
@@ -98,6 +102,8 @@ builder.Services
 });
 
 var mapperConfig = AutoMapperConfig.RegisterAutoMapper();
+
+builder.Services.AddHttpContextAccessor();
 // mapper
 builder.Services.AddSingleton<IMapper>(mapperConfig);
 
@@ -106,6 +112,9 @@ builder.Services.AddDbContext<LifequestDbContext>(options =>
 {
     options.UseMySql(connectionString, serverVersion);
 });
+
+// アクセスユーザーの情報を取得
+builder.Services.AddScoped<AuthUserContext>();
 
 // repository
 builder.Services.AddScoped<IUserRepository, UserRepository>();

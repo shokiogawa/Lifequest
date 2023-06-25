@@ -19,3 +19,27 @@
 4. DB → Entity、ViewModel → Entity は mapper ではなく、コンストラクタを使用すること。
 
 # マイグレーション
+
+# session 管理方法
+
+```c#
+    await HttpContext.Session.LoadAsync();
+    var storeValue = HttpContext.Session.GetString("test1");
+    Console.WriteLine(storeValue);
+    if (storeValue == null)
+    {
+      Console.WriteLine("保存しにいってるよ");
+      HttpContext.Session.SetString("test2", "テスト2");
+
+      // Redisにデータを保存する
+      await HttpContext.Session.CommitAsync();
+    }
+```
+
+# JWT から uid を取得する方法　
+
+```c#
+var uid = User.Claims.Where(_ => _.Type == "user_id").First().Value;
+```
+
+※ user データを取得する場合は、authUserContext を使用すること

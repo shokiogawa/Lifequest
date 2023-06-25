@@ -10,9 +10,7 @@ public class CustomeMiddleware
   }
   public async Task InvokeAsync(HttpContext context)
   {
-    _logger.LogInformation("カスタムミドルウェア開始");
     _logger.LogInformation(context.Request.Path);
-    _logger.LogInformation("カスタムミドルウェア終了");
     await _next(context);
   }
 }
