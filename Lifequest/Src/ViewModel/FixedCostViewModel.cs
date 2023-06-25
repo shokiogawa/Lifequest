@@ -16,7 +16,6 @@ public class FixedCostViewModel
   [JsonPropertyName("expose")]
   public uint Expose {get; set;}
 
-  public bool Gender {get; set;}
   [JsonPropertyName("deleted_at")]
   public DateTime DeletedAt {get; set;}
   [JsonPropertyName("created_at")]

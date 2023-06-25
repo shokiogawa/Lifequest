@@ -39,16 +39,19 @@ builder.Services.AddDbContext<LifequestDbContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBankRepository, BankRepository>();
 builder.Services.AddScoped<IFamilyRepository, FamilyRepository>();
+builder.Services.AddScoped<IFixedCostRepository, FixedCostRepository>();
 
 // query service
 builder.Services.AddScoped<IUserQueryService, UserQueryService>();
 builder.Services.AddScoped<IBankQueryService, BankQueryService>();
+builder.Services.AddScoped<IFixedCostQueryService, FixedCostQueryService>();
 
 // usecase
 
 builder.Services.AddScoped<CreateUserUseCase>();
 builder.Services.AddScoped<CreateFamilyUseCase>();
 builder.Services.AddScoped<CreateBankUseCase>();
+builder.Services.AddScoped<CreateFixedCostUseCase>();
 builder.Services.AddScoped<UpdateBankTotalAmountUseCase>();
 
 

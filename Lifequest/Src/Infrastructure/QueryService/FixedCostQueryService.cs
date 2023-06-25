@@ -2,9 +2,6 @@ using Lifequest.Src.Domain.Entity;
 using Lifequest.Src.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.Infrastructure.Db.Tables;
-using Lifequest.Src;
 using Lifequest.Src.UseCase.Query;
 namespace Lifequest.Src.Infrastructure.Repository;
 

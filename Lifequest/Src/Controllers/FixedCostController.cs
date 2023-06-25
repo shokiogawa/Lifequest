@@ -6,7 +6,7 @@ using Lifequest.Src.UseCase.Command;
 namespace Lifequest.Src.Controllers;
 
 [ApiController]
-[Route("api/user")]
+[Route("api/fixed_costs")]
 public class FixedCostController : ControllerBase
 {
   private readonly IMapper _mapper;
