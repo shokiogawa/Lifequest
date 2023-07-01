@@ -1,6 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-namespace Lifequest.Src.ViewModel;
+namespace Lifequest.Src.ViewModel.ResponseModel;
 
 public class BankTotalResponseModel
 {

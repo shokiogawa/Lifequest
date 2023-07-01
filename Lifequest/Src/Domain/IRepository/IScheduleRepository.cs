@@ -4,4 +4,7 @@ namespace Lifequest.Src.Domain.IRepository;
 
 public interface IScheduleRepository
 {
+  Task Create(Schedule schedule);
+  Task Update (Schedule updateSchedule);
+  Task Delete(uint scheduleId);
 }

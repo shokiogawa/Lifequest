@@ -15,6 +15,10 @@ public class LifequestDbContext : DbContext
 
   public DbSet<BankHistoryTable> BankHistoryTable{get; set;}
 
+  public DbSet<SecurityAccountTable> SecurityAccountTable {get; set;}
+
+  public DbSet<SecurityAccountAmmountTable> SecurityAccountAmmountTable {get;set;}
+
   public DbSet<FixedCostTable> FixedCostTable {get; set;}
   readonly MySqlServerVersion serverVersion = new (new Version(5, 7, 0));
   public LifequestDbContext(DbContextOptions<LifequestDbContext> oprions) : base (oprions)

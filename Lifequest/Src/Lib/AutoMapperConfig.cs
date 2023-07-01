@@ -18,6 +18,7 @@ public class AutoMapperConfig :  Profile
       cfg.CreateMap<User, UserViewModel>();
       cfg.CreateMap<Bank, BankViewModel>();
       cfg.CreateMap<FixedCost, FixedCostViewModel>();
+      cfg.CreateMap<Schedule, ScheduleViewModel>();
 
       // アプリ → DB
       cfg.CreateMap<User, UserTable>();
@@ -26,6 +27,7 @@ public class AutoMapperConfig :  Profile
       cfg.CreateMap<Bank, BankTable>();
       cfg.CreateMap<BankHistory, BankHistoryTable>();
       cfg.CreateMap<FixedCost, FixedCostTable>();
+      cfg.CreateMap<Schedule, ScheduleTable>();
     });
     return config.CreateMapper();
   }

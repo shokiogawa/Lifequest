@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Lifequest.Src.UseCase.Query;
 using Lifequest.Src.ViewModel;
+using Lifequest.Src.ViewModel.ResponseModel;
 using AutoMapper;
 using Lifequest.Src.UseCase.Command;
 namespace Lifequest.Src.Controllers;

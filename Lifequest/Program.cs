@@ -93,7 +93,6 @@ builder.Services
         // トークン認証に成功時
         OnTokenValidated = context => 
         {
-            Console.WriteLine(Task.CurrentId);
             Console.WriteLine("認証成功");
             return Task.CompletedTask;
         },
@@ -121,11 +120,13 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBankRepository, BankRepository>();
 builder.Services.AddScoped<IFamilyRepository, FamilyRepository>();
 builder.Services.AddScoped<IFixedCostRepository, FixedCostRepository>();
+builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
 
 // query service
 builder.Services.AddScoped<IUserQueryService, UserQueryService>();
 builder.Services.AddScoped<IBankQueryService, BankQueryService>();
 builder.Services.AddScoped<IFixedCostQueryService, FixedCostQueryService>();
+builder.Services.AddScoped<IScheduleQueryService, ScheduleQueryService>();
 
 // usecase
 
@@ -134,6 +135,7 @@ builder.Services.AddScoped<CreateFamilyUseCase>();
 builder.Services.AddScoped<CreateBankUseCase>();
 builder.Services.AddScoped<CreateFixedCostUseCase>();
 builder.Services.AddScoped<UpdateBankTotalAmountUseCase>();
+builder.Services.AddScoped<CreateScheduleUseCase>();
 
 
 // コントローラー
