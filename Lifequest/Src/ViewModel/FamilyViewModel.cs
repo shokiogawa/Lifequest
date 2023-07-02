@@ -8,7 +8,7 @@ public class CreateFamilyViewModel
   public uint Id {get; set;}
 
   [JsonPropertyName("name")]
-  public string Name {get; set;}
+  public string Name {get; set;} = default!;
 
   [JsonPropertyName("family_members")]
   public List<FamilyMemberViewModel> FamilyMembers {get; set;} = new List<FamilyMemberViewModel>();

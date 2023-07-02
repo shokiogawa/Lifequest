@@ -14,7 +14,7 @@ public class BankViewModel
   public uint FamilymemberId {get;  set;}
 
   [JsonPropertyName("name")]
-  public string Name {get;  set;}
+  public string Name {get;  set;} = default!;
 
   [JsonPropertyName("code")]
   public string? Code {get;  set;}

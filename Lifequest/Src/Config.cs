@@ -2,28 +2,28 @@ namespace Lifequest.Src;
 
 public class Appsettings 
 {
-  public Redis Redis {get; set;}
-  public FirebaseConfig FirebaseConfig{get; set;}
+  public Redis Redis {get; set;} = default!;
+  public FirebaseConfig FirebaseConfig{get; set;} = default!;
 }
 
 public class Redis 
 {
-  public string ConnectionStrings {get; set;}
+  public string ConnectionStrings {get; set;} = default!;
 
-  public string InstanceName {get; set;}
+  public string InstanceName {get; set;} = default!;
 }
 
 public class FirebaseConfig
 {
-  public string ApiKey {get; set;}
+  public string ApiKey {get; set;} = default!;
 
-  public string AuthDomain {get; set;}
+  public string AuthDomain {get; set;} = default!;
 
-  public string ProjectId {get; set;}
+  public string ProjectId {get; set;} = default!;
 
-  public string Authority {get; set;}
+  public string Authority {get; set;} = default!;
 
-  public string ValidIssuer{get; set;}
+  public string ValidIssuer{get; set;} = default!;
 
-  public string ValidAudience{get; set;}
+  public string ValidAudience{get; set;} = default!;
 }

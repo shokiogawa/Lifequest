@@ -8,10 +8,10 @@ public class BankTotalResponseModel
   public uint TotalAmount {get; set;}
 
   [JsonPropertyName("total_amount_string")]
-  public string TotalAmountString {get; set;}
+  public string TotalAmountString {get; set;} = default!;
 
   [JsonPropertyName("bank_list")]
-  public List<BankResponseModel> BankList {get; set;}
+  public List<BankResponseModel> BankList {get; set;} = default!;
 }
 
 
@@ -27,7 +27,7 @@ public class BankResponseModel
   public uint FamilymemberId {get;  set;}
 
   [JsonPropertyName("name")]
-  public string Name {get;  set;}
+  public string Name {get;  set;} = default!;
 
   [JsonPropertyName("code")]
   public string? Code {get;  set;}
@@ -46,7 +46,7 @@ public class BankResponseModel
   public uint TotalAmount {get; set;}
 
   [JsonPropertyName("total_amount_string")]
-  public string TotalAmountString {get; set;}
+  public string TotalAmountString {get; set;} = default!;
 
   [JsonPropertyName("deleted_at")]
   public DateTime DeletedAt {get; set;}

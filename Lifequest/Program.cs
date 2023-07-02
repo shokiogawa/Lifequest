@@ -127,6 +127,7 @@ builder.Services.AddScoped<IUserQueryService, UserQueryService>();
 builder.Services.AddScoped<IBankQueryService, BankQueryService>();
 builder.Services.AddScoped<IFixedCostQueryService, FixedCostQueryService>();
 builder.Services.AddScoped<IScheduleQueryService, ScheduleQueryService>();
+builder.Services.AddScoped<IFamilyQueryService, FamilyQueryService>();
 
 // usecase
 
@@ -136,6 +137,7 @@ builder.Services.AddScoped<CreateBankUseCase>();
 builder.Services.AddScoped<CreateFixedCostUseCase>();
 builder.Services.AddScoped<UpdateBankTotalAmountUseCase>();
 builder.Services.AddScoped<CreateScheduleUseCase>();
+builder.Services.AddScoped<AddFamilyMember>();
 
 
 // コントローラー

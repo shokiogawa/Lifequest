@@ -57,11 +57,18 @@ public class FamilyMember
 
   public bool IsOwner {get; set;}
 
-  public FamilyMember(uint userId, string position, bool isOwner)
+  public FamilyMember()
   {
-      UserId = userId;
-      Position = position;
-      IsOwner = isOwner;
+  }
+
+  public static FamilyMember New(uint userId, string position, bool isOwner)
+  {
+    return new FamilyMember
+    {
+      UserId = userId,
+      Position = position,
+      IsOwner = isOwner
+    };
   }
 
   public void AddFamilyId(uint familyId)

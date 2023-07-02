@@ -2,6 +2,8 @@ using AutoMapper;
 using Lifequest.Src.Infrastructure.Db.Tables;
 using Lifequest.Src.Domain.Entity;
 using Lifequest.Src.ViewModel;
+using Lifequest.Src.ViewModel.ResponseModel;
+using Lifequest.Src.UseCase.ReadModel;
 
 namespace Lifequest.Src.Lib;
 
@@ -28,6 +30,10 @@ public class AutoMapperConfig :  Profile
       cfg.CreateMap<BankHistory, BankHistoryTable>();
       cfg.CreateMap<FixedCost, FixedCostTable>();
       cfg.CreateMap<Schedule, ScheduleTable>();
+
+      // リードモデル → レスポンスモデル
+      cfg.CreateMap<FamilyMemberReadModel, FamilyMemberResponseModel>();
+      cfg.CreateMap<FamilyInfoReadModel, FamilyInfoResponseModel>();
     });
     return config.CreateMapper();
   }

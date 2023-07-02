@@ -7,13 +7,13 @@ public class UserViewModel
   [JsonPropertyName("id")]
   public uint Id {get; set;}
   [JsonPropertyName("uid")]
-  public string Uid {get; set;}
+  public string Uid {get; set;} = default!;
   [JsonPropertyName("email")]
-  public string Email {get; set;}
+  public string Email {get; set;} = default!;
   [JsonPropertyName("name")]
-  public string Name {get; set;}
+  public string Name {get; set;} = default!;
   [JsonPropertyName("birthday")]
-  public DateTime Birthday {get; set;}
+  public string Birthday {get; set;} = default!;
   [JsonPropertyName("age")]
   public byte Age {get; set;}
   [JsonPropertyName("gender")]

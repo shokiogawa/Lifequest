@@ -19,7 +19,7 @@ public class CreateFamilyUseCase
   {
     var familyMenber = vm.FamilyMembers.Select(member => 
     {
-      return new FamilyMember(member.UserId, member.Position, member.IsOwner);
+      return FamilyMember.New(member.UserId, member.Position, member.IsOwner);
     }).ToList();
 
     // 家族とそのメンバーを作成

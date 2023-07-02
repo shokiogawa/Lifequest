@@ -72,6 +72,20 @@ public class FamilyRepository : IFamilyRepository
     }
   }
 
+  /**
+  家族メンバー追加メソッド
+  **/
+  public async Task AddFamilyMember(FamilyMember member)
+  {
+    var famuliMemberData = _mapper.Map<FamilyMembersTable>(member);
+    await _dbContext.FamilyMembersTable.AddAsync(famuliMemberData);
+    var result = await _dbContext.SaveChangesAsync();
+    if (result <= 0)
+    {
+      throw new Exception("family member can not be added");
+    }
+  }
+
   ///
   ///概要:  最新のfamilyIdを取得する。
   ///

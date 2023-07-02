@@ -10,10 +10,10 @@ public class ScheduleViewModel
   public uint FamilyId {get; set;}
 
    [JsonPropertyName("title")]
-  public string Title {get; set;}
+  public string Title {get; set;} = default!;
 
    [JsonPropertyName("content")]
-  public string Content {get; set;}
+  public string Content {get; set;} = default!;
 
   [JsonPropertyName("start_date_time")]
   public string StartDateTime {get; set;} = default!;

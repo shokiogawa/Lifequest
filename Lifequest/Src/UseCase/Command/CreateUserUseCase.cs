@@ -17,7 +17,7 @@ public class CreateUserUseCase
 
   public async Task Invoke (UserViewModel vm)
   {
-    var user = User.Create(vm.Uid, vm.Email, vm.Name, vm.Birthday, vm.Age, vm.Gender);
+    var user = User.Create(vm.Uid, vm.Email, vm.Name, DateTime.Parse(vm.Birthday), vm.Age, vm.Gender);
     await _userRepository.Create(user);
   }
 }

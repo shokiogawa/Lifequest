@@ -7,4 +7,6 @@ public interface IFamilyRepository
   Task<Family?> Get(int id);
 
   Task Create(Family family);
+
+  Task AddFamilyMember(FamilyMember member);
 }

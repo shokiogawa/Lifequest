@@ -30,7 +30,7 @@ public class TransactionBlocks
           _logger.LogInformation("データベースに対する操作がロールバックされました。");
           await transaction.RollbackAsync();
         }
-      }catch(Exception ex)
+      }catch(Exception)
       {
         await transaction.RollbackAsync();
         _logger.LogCritical("データベーストランザクションでエラーが発生しました。操作はロールバックされました。");
