@@ -43,3 +43,11 @@ var uid = User.Claims.Where(_ => _.Type == "user_id").First().Value;
 ```
 
 ※ user データを取得する場合は、authUserContext を使用すること
+
+---
+title: Order example
+---
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
