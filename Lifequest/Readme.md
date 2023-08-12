@@ -47,7 +47,26 @@ var uid = User.Claims.Where(_ => _.Type == "user_id").First().Value;
 ---
 title: Order example
 ---
+``` mermaid
 erDiagram
     CUSTOMER ||--o{ ORDER : places
     ORDER ||--|{ LINE-ITEM : contains
     CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
+```
+
+```mermaid
+gantt
+  title PHPのライフサイクル
+
+  section PHP 7.2
+    アクティブサポート      : done, 2017-11-30, 2019-11-30
+    セキュリティサポート     : crit, 2020-11-30
+
+  section PHP7.3
+    アクティブサポート      : 2018-12-06, 2020-12-06
+    セキュリティサポート     : crit, 2021-12-06
+
+  section PHP7.4
+    アクティブサポート      : 2019-11-28, 2021-11-28
+    セキュリティサポート     : crit, 2022-11-28
+```
