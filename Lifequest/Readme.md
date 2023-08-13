@@ -71,7 +71,7 @@ gantt
     セキュリティサポート     : crit, 2022-11-28
 ```
 
-```mermaid
+```mermeid
 graph TD;
     A-->B;
 ```
