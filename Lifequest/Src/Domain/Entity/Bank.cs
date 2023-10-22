@@ -12,11 +12,11 @@ public class Bank
 
   public uint FamilymemberId {get; private set;}
   public string Name {get; private set;}
-  public string? Code {get; private set;}
+  public string? Code {get; private set;} = "";
 
   public UInt16? BranchNumber {get ; private set;}
 
-  public string? BranchName {get; private set;}
+  public string? BranchName {get; private set;} = "";
   public uint? AccountNumber {get; private set;}
   public uint TotalAmount {get; private set;}
   public DateTime DeletedAt {get; private set;}

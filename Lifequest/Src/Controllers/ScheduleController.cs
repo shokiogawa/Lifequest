@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Lifequest.Src.UseCase.Query;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
-using Lifequest.Src.UseCase.Command;
+using Lifequest.Src.ApplicationService.UseCase.ScheduleUseCase;
 using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -20,20 +19,25 @@ public class ScheduleController : ControllerBase
   private readonly IMapper _mapper;
 
   private readonly CreateScheduleUseCase _createScheduleUseCase;
-  private readonly IScheduleQueryService _scheduleQueryService;
+  private readonly FetchScheduleByFamilyIdUseCase _fetchScheduleByFamilyIdUseCase;
 
-  public ScheduleController(IMapper mapper, CreateScheduleUseCase createScheduleUseCase, IScheduleQueryService scheduleQueryService)
+  public ScheduleController(IMapper mapper, CreateScheduleUseCase createScheduleUseCase, FetchScheduleByFamilyIdUseCase fetchScheduleByFamilyIdUseCase)
   {
     _mapper = mapper;
     _createScheduleUseCase = createScheduleUseCase;
-    _scheduleQueryService = scheduleQueryService;
+    _fetchScheduleByFamilyIdUseCase = fetchScheduleByFamilyIdUseCase;
   }
 
+  /// <summary>
+  /// 家族のスケジュールを取得するメソッド
+  /// </summary>
+  /// <param name="id"></param>
+  /// <returns></returns>
   [HttpGet]
   [Route("family")]
   public async Task<ActionResult<ScheduleResponseModel>> GetListByFamilyIdAsync([FromQuery] uint id)
   {
-    var scheduleList = await _scheduleQueryService.GetListByFamilyId(id);
+    var scheduleList = await _fetchScheduleByFamilyIdUseCase.Invoke(id);
     var scheduleViewModelList = scheduleList.Select(schedule => 
     {
       return new ScheduleViewModel
@@ -56,7 +60,12 @@ public class ScheduleController : ControllerBase
       ScheduleList = scheduleViewModelList
     };
   }
-  // ユーザーが家族に属していることが条件
+  
+  /// <summary>
+  /// スケジュールを作成するメソッド
+  /// </summary>
+  /// <param name="vm"></param>
+  /// <returns></returns>
   [HttpPost]
   public async Task<IActionResult> CreateAsync([FromBody] ScheduleViewModel vm)
   {

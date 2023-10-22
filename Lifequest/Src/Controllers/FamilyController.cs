@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Lifequest.Src.UseCase.Query;
+using Lifequest.Src.ApplicationService.Query;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
-using Lifequest.Src.UseCase.Command;
-using Lifequest.Src.UseCase.ReadModel;
+using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase;
 using Lifequest.Src.ViewModel.ResponseModel;
 using Lifequest.Src.Domain.Entity;
 namespace Lifequest.Src.Controllers;

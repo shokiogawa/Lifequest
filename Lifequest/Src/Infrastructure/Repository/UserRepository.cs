@@ -17,19 +17,12 @@ public class UserRepository : IUserRepository
     _mapper = mapper;
   }
 
-  // public string Test(string name, int id)
-  // {
-  //   if(name == "test1")
-  //   {
-  //     return "test1だよ";
-  //   }
-  //   if(name == "test2")
-  //   {
-  //     return "test2だよ";
-  //   }
-  //   return "やあ";
-  // }
-
+  /// <summary>
+  /// ユーザー作成メソッド
+  /// </summary>
+  /// <param name="user"></param>
+  /// <returns></returns>
+  /// <exception cref="Exception"></exception>
   public async Task Create(User user)
   {
     var userDb = _mapper.Map<UserTable>(user);
@@ -39,5 +32,30 @@ public class UserRepository : IUserRepository
     {
       throw new Exception("unable to create user");
     }
+  }
+
+  /// <summary>
+  /// ユーザー情報取得メソッド
+  /// </summary>
+  /// <param name="id"></param>
+  /// <returns></returns>
+    public async Task<User> Get(uint id)
+  {
+    var query = from users in _dbContext.UserTable where users.Id == (uint)id select users;
+    var userData = await query.FirstAsync();
+    var user = 
+    User.fromRepository(
+      userData.Id, 
+      userData.Uid, 
+      userData.Email, 
+      userData.Name, 
+      userData.Birthday, 
+      userData.Age, 
+      userData.Gender, 
+      userData.DeletedAt, 
+      userData.CreatedAt, 
+      userData.UpdatedAt
+    ); 
+    return user;
   }
 }

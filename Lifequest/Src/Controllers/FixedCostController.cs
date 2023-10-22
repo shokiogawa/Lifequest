@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Lifequest.Src.UseCase.Query;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
-using Lifequest.Src.UseCase.Command;
+using Lifequest.Src.ApplicationService.UseCase.FixedCostUseCase;
 using Microsoft.AspNetCore.Authorization;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using Lifequest.Src.Domain.Entity;
 
 namespace Lifequest.Src.Controllers;
@@ -16,45 +13,47 @@ namespace Lifequest.Src.Controllers;
 public class FixedCostController : ControllerBase
 {
   private readonly IMapper _mapper;
-  private readonly IFixedCostQueryService _fixedCostQueryService;
 
   private readonly CreateFixedCostUseCase _createFixedCostUseCase;
 
+  private readonly FetchFixedCostByFamilyIdUseCase _fetchFixedCostByFamilyIdUseCase;
+
   private readonly AuthUserContext _userContext;
   
-  public FixedCostController(IMapper mapper, IFixedCostQueryService fixedCostQueryService, CreateFixedCostUseCase createFixedCostUseCase, AuthUserContext userContext)
+  public FixedCostController(
+    IMapper mapper, 
+    CreateFixedCostUseCase createFixedCostUseCase,
+    FetchFixedCostByFamilyIdUseCase fetchFixedCostByFamilyIdUseCase,
+    AuthUserContext userContext)
   {
-    _fixedCostQueryService = fixedCostQueryService;
     _createFixedCostUseCase = createFixedCostUseCase;
+    _fetchFixedCostByFamilyIdUseCase = fetchFixedCostByFamilyIdUseCase;
     _mapper = mapper;
     _userContext = userContext;
   }
-  /**
-  固定費取得API
-  **/
+
+  /// <summary>
+  /// 家族固定費取得API
+  /// </summary>
+  /// <param name="familyId"></param>
+  /// <returns></returns>
   [HttpGet]
-  public async Task<ActionResult<List<FixedCostViewModel>>> GetAsync([FromQuery] int familyId)
+  public async Task<ActionResult<List<FixedCostViewModel>>> GetAsync([FromQuery] uint familyId)
   {
-    var fixedCostList = await _fixedCostQueryService.GetByFamilyId(familyId);
+    var fixedCostList = await _fetchFixedCostByFamilyIdUseCase.Invoke(familyId);
     var fixedCostVmList = fixedCostList.Select(fixedCost => _mapper.Map<FixedCostViewModel>(fixedCost)).ToList();
     return fixedCostVmList;
   }
 
-  /**
-  固定費作成API
-  **/
+  /// <summary>
+  /// 固定費作成API
+  /// </summary>
+  /// <param name="vm"></param>
+  /// <returns></returns>
   [HttpPost]
   public async Task<IActionResult> CreateAsync([FromBody] FixedCostViewModel vm)
   {
     await _createFixedCostUseCase.Invoke(vm);
     return Ok();
   }
-
-  /**
-  ユーザー編集API
-  **/
-
-  /**
-  ユーザー削除API
-  **/
 }

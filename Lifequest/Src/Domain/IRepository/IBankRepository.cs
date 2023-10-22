@@ -8,4 +8,8 @@ public interface IBankRepository
   Task UpdateInfo(Bank bank);
   Task UpdateTotalAmount(Bank newBank, BankHistory nabkHistory);
   Task<Bank?> GetByIdAsync(uint bankId);
+
+  Task<List<Bank>> FetchListByFamilyId(uint familyId);
+
+  Task<Bank?> FetchDetail(uint bankId);
 }

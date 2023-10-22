@@ -2,7 +2,7 @@ using Lifequest.Src.Domain.IRepository;
 using Lifequest.Src.Domain.Entity;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
-namespace Lifequest.Src.UseCase.Command;
+namespace Lifequest.Src.ApplicationService.UseCase.FamilyUseCase;
 
 public class AddFamilyMember
 {

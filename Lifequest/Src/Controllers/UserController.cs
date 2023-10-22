@@ -1,37 +1,41 @@
 using Microsoft.AspNetCore.Mvc;
-using Lifequest.Src.UseCase.Query;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
-using Lifequest.Src.UseCase.Command;
+using Lifequest.Src.ApplicationService.UseCase.UserUseCase;
 namespace Lifequest.Src.Controllers;
 
 [ApiController]
 [Route("api/user")]
 public class UserController : ControllerBase
 {
-  private readonly IUserQueryService _userQueryService;
+  private readonly FetchUserDetailUseCase _fertchUserDetailUseCase;
   private readonly CreateUserUseCase _createUserUseCase;
   private readonly IMapper _mapper;
   
-  public UserController(IUserQueryService userQueryService, CreateUserUseCase createUserUseCase , IMapper mapper)
+  public UserController(FetchUserDetailUseCase fertchUserDetailUseCase, CreateUserUseCase createUserUseCase , IMapper mapper)
   {
-    _userQueryService = userQueryService;
+    _fertchUserDetailUseCase = fertchUserDetailUseCase;
     _createUserUseCase = createUserUseCase;
     _mapper = mapper;
   }
-  /**
-  ユーザー取得API
-  **/
+
+  /// <summary>
+  /// ユーザー情報取得API
+  /// </summary>
+  /// <param name="id"></param>
+  /// <returns></returns>
   [HttpGet]
-  public async Task<ActionResult<UserViewModel>> GetAsync([FromQuery] int id)
+  public async Task<ActionResult<UserViewModel>> GetAsync([FromQuery] uint id)
   {
-    var user = await _userQueryService.Get(id);
-    return user == null ? NotFound() : _mapper.Map<UserViewModel>(user);
+    var user = await _fertchUserDetailUseCase.Invoke(id);
+    return _mapper.Map<UserViewModel>(user);
   }
 
-  /**
-  ユーザー作成API
-  **/
+  /// <summary>
+  /// ユーザー作成API
+  /// </summary>
+  /// <param name="vm"></param>
+  /// <returns></returns>
   [HttpPost]
   public async Task<IActionResult> CreateAsync([FromBody] UserViewModel vm)
   {
@@ -39,12 +43,4 @@ public class UserController : ControllerBase
     // CreatedAtActionメソッドを使用予定。
     return Ok();
   }
-
-  /**
-  ユーザー編集API
-  **/
-
-  /**
-  ユーザー削除API
-  **/
 }

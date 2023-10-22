@@ -1,8 +1,11 @@
-using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.Domain.Entity;
-namespace Lifequest.Src.UseCase.ReadModel;
+namespace Lifequest.Src.ApplicationService.Query;
+public interface IFamilyQueryService
+{
+  Task<List<FamilyInfoDto>> GetList(string uuid);
+}
 
-public class FamilyInfoReadModel
+// 参照用モデル
+public class FamilyInfoDto
 {
   public uint FamilyId {get; set;}
   public string FamilyName {get ;set;} = default!;
@@ -10,10 +13,10 @@ public class FamilyInfoReadModel
 
   public bool IsOwner {get; set;}
 
-  public List<FamilyMemberReadModel> FamilyMambers {get; set;} = default!;
+  public List<FamilyMemberDto> FamilyMambers {get; set;} = default!;
 }
 
-public class FamilyMemberReadModel 
+public class FamilyMemberDto
 {
   public uint UserId {get;set;}
   public uint FamilymemberId {get; set;}

@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Lifequest.Src.UseCase.Query;
+using Lifequest.Src.ApplicationService.UseCase.BankUseCase;
 using Lifequest.Src.ViewModel;
 using Lifequest.Src.ViewModel.ResponseModel;
 using AutoMapper;
-using Lifequest.Src.UseCase.Command;
 namespace Lifequest.Src.Controllers;
 
 [ApiController]
@@ -12,15 +11,19 @@ public class BankController : ControllerBase
 {
   private readonly CreateBankUseCase _createBankUseCase;
 
-  private readonly IBankQueryService _bankQueryService;
+  private readonly FetchBankListByFamilyIdUseCase _fetchBankListByFamilyIdUseCase;
 
   private readonly UpdateBankTotalAmountUseCase _updateBankTotalAmountUseCase;
   private readonly IMapper _mapper;
 
-  public BankController(CreateBankUseCase createBankUseCase, IBankQueryService bankQueryService,UpdateBankTotalAmountUseCase updateBankTotalAmountUseCase,IMapper mapper)
+  public BankController(
+    CreateBankUseCase createBankUseCase, 
+    FetchBankListByFamilyIdUseCase fetchBankListByFamilyIdUseCase,
+    UpdateBankTotalAmountUseCase updateBankTotalAmountUseCase,
+    IMapper mapper)
   {
     _createBankUseCase = createBankUseCase;
-    _bankQueryService = bankQueryService;
+    _fetchBankListByFamilyIdUseCase = fetchBankListByFamilyIdUseCase;
     _updateBankTotalAmountUseCase = updateBankTotalAmountUseCase;
     _mapper = mapper;
   }
@@ -54,7 +57,7 @@ public class BankController : ControllerBase
   public async Task<ActionResult<BankTotalResponseModel>> GetByFamilyIdAsync ([FromQuery] uint familyId)
   {
     // 家族テーブルに紐づいている銀行情報を取得
-    var bankList = await _bankQueryService.GetListByFamilyId(familyId);
+    var bankList = await _fetchBankListByFamilyIdUseCase.Invoke(familyId);
     // jsonに変換
     var bankListViewModel = bankList.Select(bank => new BankResponseModel
     {

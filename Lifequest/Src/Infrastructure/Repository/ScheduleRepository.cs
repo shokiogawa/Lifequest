@@ -17,9 +17,12 @@ public class ScheduleRepository : IScheduleRepository
     _mapper = mapper;
   }
 
-  /**
-  Scheduleデータを作成する
-  **/
+  /// <summary>
+  /// スケジュールデータ作成
+  /// </summary>
+  /// <param name="schedule"></param>
+  /// <returns></returns>
+  /// <exception cref="Exception"></exception>
   public async Task Create(Schedule schedule)
   {
     var scheduleData = _mapper.Map<ScheduleTable>(schedule);
@@ -31,9 +34,11 @@ public class ScheduleRepository : IScheduleRepository
     }
   }
 
-  /**
-  Scheduleデータを更新する。
-  **/
+  /// <summary>
+  /// スケジュールデータ更新
+  /// </summary>
+  /// <param name="updateSchedule"></param>
+  /// <returns></returns>
   public async Task Update (Schedule updateSchedule)
   {
     try
@@ -55,9 +60,11 @@ public class ScheduleRepository : IScheduleRepository
     }
   }
 
-  /**
-  Scheduleデータを削除
-  **/
+  /// <summary>
+  /// スケジュールデータ削除
+  /// </summary>
+  /// <param name="scheduleId"></param>
+  /// <returns></returns>
   public async Task Delete(uint scheduleId)
   {
     var targetSchedule = await _getById(scheduleId);
@@ -65,9 +72,42 @@ public class ScheduleRepository : IScheduleRepository
     await _dbContext.SaveChangesAsync();
   }
 
-  /**
-  ScheduleTabデータを取得 (repository内でしか使用しないこと)
-  **/
+  /// <summary>
+  /// 家族のスケジュール情報の一覧を取得
+  /// </summary>
+  /// <param name="familyId"></param>
+  /// <returns></returns>
+    public async Task<List<Schedule>> GetListByFamilyId(uint familyId)
+  {
+    var query = from schedule in _dbContext.ScheduleTable 
+    where schedule.FamilyId == familyId && 
+          schedule.DeletedAt == Constant.DeletedAt 
+    orderby schedule.CreatedAt descending
+    select schedule;
+    var scheduleDataList = await query.ToListAsync();
+    var scheduleList = scheduleDataList.Select(_ => 
+    Schedule.FromRepository(
+      _.Id, 
+      _.FamilyId, 
+      _.Title, 
+      _.Content, 
+      _.StartDateTime, 
+      _.EndDateTime, 
+      _.IsAllDayFlag, 
+      _.CreatedUserId, 
+      _.DeletedAt, 
+      _.CreatedAt, 
+      _.UpdatedAt)
+    ).ToList();
+    return scheduleList;
+  }
+
+  /// <summary>
+  /// スケジュールデータ取得(トラッキングあり)
+  /// </summary>
+  /// <param name="scheduleId"></param>
+  /// <returns></returns>
+  /// <exception cref="Exception"></exception>
   private async Task<ScheduleTable> _getById(uint scheduleId)
   {
     var targetSchedule = await _dbContext.ScheduleTable.Where(_ => _.Id == scheduleId).FirstOrDefaultAsync();

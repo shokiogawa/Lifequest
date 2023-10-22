@@ -16,7 +16,12 @@ public class FixedCostRepository : IFixedCostRepository
     _dbContext = dbContext;
     _mapper = mapper;
   }
-
+  /// <summary>
+  /// 固定費作成メソッド
+  /// </summary>
+  /// <param name="fixedCost"></param>
+  /// <returns></returns>
+  /// <exception cref="Exception"></exception>
   public async Task Create(FixedCost fixedCost)
   {
     var fixedCostData = _mapper.Map<FixedCostTable>(fixedCost);
@@ -26,5 +31,31 @@ public class FixedCostRepository : IFixedCostRepository
     {
       throw new Exception("unable to create fixed cost");
     }
+  }
+
+  /// <summary>
+  /// 家族の固定費取得メソッド
+  /// </summary>
+  /// <param name="familyId"></param>
+  /// <returns></returns>
+  public async Task<List<FixedCost>> GetByFamilyId(uint familyId)
+  {
+        var query = from fixedCosts in _dbContext.FixedCostTable 
+                where fixedCosts.FamilyId == familyId && 
+                      fixedCosts.DeletedAt == Constant.DeletedAt 
+                select fixedCosts;
+
+    var fixedCostDataList = await query.ToListAsync();
+    var fixedCostList = fixedCostDataList.Select(
+      data => FixedCost.FromRepository(
+        data.Id, 
+        data.FamilyId,
+        data.Name, 
+        data.Expose, 
+        data.DeletedAt, 
+        data.CreatedAt, 
+        data.UpdatedAt
+      )).ToList();
+    return fixedCostList;
   }
 }

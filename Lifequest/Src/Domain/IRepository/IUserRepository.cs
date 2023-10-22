@@ -4,7 +4,17 @@ namespace Lifequest.Src.Domain.IRepository;
 
 public interface IUserRepository
 {
-  // string Test(string name, int id);
-
+  /// <summary>
+  /// ユーザー作成メソッド
+  /// </summary>
+  /// <param name="user"></param>
+  /// <returns></returns>
   Task Create(User user);
+
+  /// <summary>
+  /// ユーザー情報取得メソッド
+  /// </summary>
+  /// <param name="id"></param>
+  /// <returns></returns>
+  Task<User> Get(uint id);
 }
