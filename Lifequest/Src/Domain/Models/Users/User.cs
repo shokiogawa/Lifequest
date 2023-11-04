@@ -1,12 +1,7 @@
-namespace Lifequest.Src.Domain.Entity;
+namespace Lifequest.Src.Domain.Models.Users;
 
 public class User
 {
-  public User()
-  {
-  }
-
-
   public uint Id {get; private set;}
   public string Uid {get; private set;}
   public string Email {get; private set;}
@@ -18,6 +13,17 @@ public class User
   public DateTime CreatedAt {get; private set;}
   public DateTime UpdatedAt {get; private set;}
 
+  /// <summary>
+  /// 初回作成コンストラクタ
+  /// </summary>
+  /// <param name="uid"></param>
+  /// <param name="email"></param>
+  /// <param name="name"></param>
+  /// <param name="birthday"></param>
+  /// <param name="age"></param>
+  /// <param name="gender"></param>
+  /// <returns></returns>
+  /// <exception cref="ArgumentException"></exception>
   public static User Create(string uid, string email, string name, DateTime birthday, byte age, bool gender)
   {
     if(string.IsNullOrEmpty(uid))
@@ -47,6 +53,20 @@ public class User
     };
   }
 
+  /// <summary>
+  /// 再構成コンストラクタ
+  /// </summary>
+  /// <param name="id"></param>
+  /// <param name="uid"></param>
+  /// <param name="email"></param>
+  /// <param name="name"></param>
+  /// <param name="birthday"></param>
+  /// <param name="age"></param>
+  /// <param name="gender"></param>
+  /// <param name="deletedAt"></param>
+  /// <param name="createdAt"></param>
+  /// <param name="updatedAt"></param>
+  /// <returns></returns>
   public static User fromRepository(uint id, string uid, string email, string name, DateTime birthday, byte age, bool gender, DateTime deletedAt, DateTime createdAt, DateTime updatedAt)
   {
     return new User
@@ -62,5 +82,12 @@ public class User
       CreatedAt = createdAt,
       UpdatedAt = updatedAt
     };
+  }
+
+  /// <summary>
+  /// 内部使用にとどめる
+  /// </summary>
+  private User()
+  {
   }
 }

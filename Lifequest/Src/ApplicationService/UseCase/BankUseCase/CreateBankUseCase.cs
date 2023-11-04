@@ -1,5 +1,5 @@
 using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.Domain.Models.Banks;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
 namespace Lifequest.Src.ApplicationService.UseCase.BankUseCase;
@@ -18,7 +18,7 @@ public class CreateBankUseCase
   public async Task Invoke(BankViewModel vm)
   {
     // Bankオブジェクト生成
-    Bank bank = Bank.NewCreate(vm.FamilyId, vm.FamilymemberId, vm.Name, vm.Code, vm.BranchNumber, vm.BranchName, vm.AccountNumber, vm.TotalAmount);
+    Bank bank = Bank.Create(vm.FamilyId, vm.FamilymemberId, vm.Name, vm.Code, vm.BranchNumber, vm.BranchName, vm.AccountNumber, vm.TotalAmount);
     // 家族作成
     await _bankRepository.Create(bank);
   }

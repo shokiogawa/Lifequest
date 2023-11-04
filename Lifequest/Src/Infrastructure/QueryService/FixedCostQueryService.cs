@@ -1,6 +1,6 @@
 using Lifequest.Src.Infrastructure.Db;
 using AutoMapper;
-using Lifequest.Src.ApplicationService.Query;
+using Lifequest.Src.ApplicationService.IQueryService;
 namespace Lifequest.Src.Infrastructure.Repository;
 
 public class FixedCostQueryService : IFixedCostQueryService

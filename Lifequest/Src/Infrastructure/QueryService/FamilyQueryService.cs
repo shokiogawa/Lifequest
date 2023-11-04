@@ -1,7 +1,8 @@
 using Lifequest.Src.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using Lifequest.Src.UseCase.Query;
+using Lifequest.Src.ApplicationService.IQueryService;
+using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase;
 namespace Lifequest.Src.Infrastructure.Repository;
 
 public class FamilyQueryService : IFamilyQueryService
@@ -14,7 +15,7 @@ public class FamilyQueryService : IFamilyQueryService
     _dbContext = dbContext;
     _mapper = mapper;
   }
-    public async Task<List<FamilyInfoDto>> GetList(string uuid)
+    public async Task<List<FetchFamilyListUseCaseDto>> GetList(string uuid)
   {
     var query = 
     from loginUser in _dbContext.UserTable
@@ -35,15 +36,16 @@ public class FamilyQueryService : IFamilyQueryService
     {
       FamilyId = family.Id,
       Familyname = family.Name,
-      Position = familyMember.Position,
-      IsOwner = familyMember.IsOwner,
+      familyMember.Position,
+      familyMember.IsOwner,
       FamilyMemberInfo = familyMembers,
       UserInfo = users
     };
 
 
     var result = await query.ToListAsync();
-    var familyList = result.GroupBy(_ => _.FamilyId).Select(_ => new FamilyInfoDto
+    // TODO: メモリを食うので要注意
+    var familyList = result.GroupBy(_ => _.FamilyId).Select(_ => new FetchFamilyListUseCaseDto
     {
       FamilyId = _.First().FamilyId,
       FamilyName = _.First().Familyname,

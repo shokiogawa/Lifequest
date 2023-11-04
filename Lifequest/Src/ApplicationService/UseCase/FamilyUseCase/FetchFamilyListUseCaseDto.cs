@@ -1,11 +1,6 @@
-namespace Lifequest.Src.ApplicationService.Query;
-public interface IFamilyQueryService
-{
-  Task<List<FamilyInfoDto>> GetList(string uuid);
-}
-
+namespace Lifequest.Src.ApplicationService.UseCase.FamilyUseCase;
 // 参照用モデル
-public class FamilyInfoDto
+public class FetchFamilyListUseCaseDto
 {
   public uint FamilyId {get; set;}
   public string FamilyName {get ;set;} = default!;

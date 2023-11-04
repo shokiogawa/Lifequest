@@ -1,5 +1,5 @@
 using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.Domain.Models.Families;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
 namespace Lifequest.Src.ApplicationService.UseCase.FamilyUseCase;
@@ -18,9 +18,10 @@ public class AddFamilyMember
   public async Task Invoke (FamilyMemberViewModel vm)
   {
     // メンバーを作成
-    var familyMember = FamilyMember.New(vm.UserId, vm.Position, vm.IsOwner);
-    // 所属家族を紐付け
-    familyMember.AddFamilyId(vm.FamilyId);
-    await _familyRepository.AddFamilyMember(familyMember);
+    var familyMemberList =  new List<FamilyMember>
+    {
+      FamilyMember.Create(vm.UserId,vm.FamilyId, vm.Position, vm.IsOwner),
+    };
+    await _familyRepository.AddFamilyMember(familyMemberList);
   }
 }

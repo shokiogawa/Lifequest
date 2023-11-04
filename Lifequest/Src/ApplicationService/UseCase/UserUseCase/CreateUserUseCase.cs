@@ -1,5 +1,5 @@
 using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.Domain.Models.Users;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
 namespace Lifequest.Src.ApplicationService.UseCase.UserUseCase;

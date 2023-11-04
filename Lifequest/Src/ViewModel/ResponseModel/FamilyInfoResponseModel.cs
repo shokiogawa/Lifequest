@@ -1,6 +1,3 @@
-using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.Domain.Entity;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 namespace Lifequest.Src.ViewModel.ResponseModel;
 

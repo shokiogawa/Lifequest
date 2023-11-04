@@ -1,6 +1,5 @@
 using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.Domain.Entity;
-using Lifequest.Src.ViewModel;
+using Lifequest.Src.Domain.Models.Schedules;
 using AutoMapper;
 namespace Lifequest.Src.ApplicationService.UseCase.ScheduleUseCase;
 

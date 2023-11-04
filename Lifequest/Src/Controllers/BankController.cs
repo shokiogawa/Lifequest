@@ -27,11 +27,12 @@ public class BankController : ControllerBase
     _updateBankTotalAmountUseCase = updateBankTotalAmountUseCase;
     _mapper = mapper;
   }
-  
-  /**
-  銀行作成API
-  **/
 
+  /// <summary>
+  /// 銀行作成API
+  /// </summary>
+  /// <param name="vm"></param>
+  /// <returns></returns>
   [HttpPost]
   public async Task<IActionResult> CreateAsync([FromBody] BankViewModel vm)
   {
@@ -39,9 +40,11 @@ public class BankController : ControllerBase
     return Ok();
   }
 
-  /**
-  銀行の合計貯蓄金額更新API
-  **/
+  /// <summary>
+  /// 貯金修正API
+  /// </summary>
+  /// <param name="vm"></param>
+  /// <returns></returns>
   [HttpPost]
   [Route("totalAmount")]
   public async Task<IActionResult> UpdateTotalAmountAsync([FromBody] BankViewModel vm)
@@ -50,9 +53,11 @@ public class BankController : ControllerBase
     return Ok();
   }
 
-  /**
-  家族に紐づく銀行取得API
-  **/
+  /// <summary>
+  /// 家族の銀行データ取得API
+  /// </summary>
+  /// <param name="familyId"></param>
+  /// <returns></returns>
   [HttpGet]
   public async Task<ActionResult<BankTotalResponseModel>> GetByFamilyIdAsync ([FromQuery] uint familyId)
   {
@@ -76,7 +81,7 @@ public class BankController : ControllerBase
       UpdatedAt = bank.UpdatedAt,
     }).ToList();
 
-    var bankTotalAmount = (uint)((bankList.Select(bank => (decimal)bank.TotalAmount)).ToList()).Sum();
+    var bankTotalAmount = (uint)bankList.Select(bank => (decimal)bank.TotalAmount).ToList().Sum();
     return new BankTotalResponseModel
     {
       TotalAmount = bankTotalAmount, 

@@ -1,5 +1,5 @@
 using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.Domain.Models.Schedules;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
 namespace Lifequest.Src.ApplicationService.UseCase.ScheduleUseCase;
@@ -17,7 +17,7 @@ public class CreateScheduleUseCase
 
   public async Task Invoke(ScheduleViewModel vm)
   {
-    var newSchedule = Schedule.New(
+    var newSchedule = Schedule.Create(
       vm.FamilyId, 
       vm.Title, 
       vm.Content, 

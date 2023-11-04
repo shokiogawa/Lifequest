@@ -7,8 +7,12 @@ using Lifequest.Src.Lib;
 using AutoMapper;
 using Lifequest.Src.Infrastructure.Repository;
 using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.UseCase.Query;
-using Lifequest.Src.UseCase.Command;
+using Lifequest.Src.ApplicationService.IQueryService;
+using Lifequest.Src.ApplicationService.UseCase.BankUseCase;
+using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase;
+using Lifequest.Src.ApplicationService.UseCase.FixedCostUseCase;
+using Lifequest.Src.ApplicationService.UseCase.ScheduleUseCase;
+using Lifequest.Src.ApplicationService.UseCase.UserUseCase;
 using Lifequest.Src;
 using Microsoft.EntityFrameworkCore;
 using Firebase.Auth;
@@ -130,7 +134,6 @@ builder.Services.AddScoped<IScheduleQueryService, ScheduleQueryService>();
 builder.Services.AddScoped<IFamilyQueryService, FamilyQueryService>();
 
 // usecase
-
 builder.Services.AddScoped<CreateUserUseCase>();
 builder.Services.AddScoped<CreateFamilyUseCase>();
 builder.Services.AddScoped<CreateBankUseCase>();
@@ -138,6 +141,11 @@ builder.Services.AddScoped<CreateFixedCostUseCase>();
 builder.Services.AddScoped<UpdateBankTotalAmountUseCase>();
 builder.Services.AddScoped<CreateScheduleUseCase>();
 builder.Services.AddScoped<AddFamilyMember>();
+builder.Services.AddScoped<FetchUserDetailUseCase>();
+builder.Services.AddScoped<FetchBankListByFamilyIdUseCase>();
+builder.Services.AddScoped<FetchFamilyListUseCase>();
+builder.Services.AddScoped<FetchFixedCostByFamilyIdUseCase>();
+builder.Services.AddScoped<FetchScheduleByFamilyIdUseCase>();
 
 
 // コントローラー
@@ -160,7 +168,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCustomeMiddleware();
+// app.UseCustomeMiddleware();
 app.UseSession();
 
 app.MapControllers();

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Lifequest.Src.ApplicationService.Query;
+using Lifequest.Src.ApplicationService.IQueryService;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
 using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase;
@@ -28,9 +28,11 @@ public class FamilyController : ControllerBase
     _userContext = userContext;
     _mapper = mapper;
   }
-  /**
-  家族データ詳細取得API
-  **/
+
+  /// <summary>
+  /// 家族データ取得API
+  /// </summary>
+  /// <returns></returns>
   [HttpGet]
   public async Task<ActionResult<FamilyInfoListResponseModel>> GetListAsync()
   {
@@ -44,9 +46,11 @@ public class FamilyController : ControllerBase
     };
   }
 
-  /**
-  家族作成API
-  **/
+  /// <summary>
+  /// 家族作成API
+  /// </summary>
+  /// <param name="vm"></param>
+  /// <returns></returns>
   [HttpPost]
   public async Task<IActionResult> CreateAsync([FromBody] CreateFamilyViewModel vm)
   {
@@ -54,9 +58,11 @@ public class FamilyController : ControllerBase
     return Ok();
   }
 
-  /**
-  家族メンバー追加API
-  **/
+  /// <summary>
+  /// 家族メンバー追加API
+  /// </summary>
+  /// <param name="vm"></param>
+  /// <returns></returns>
   [HttpPost]
   [Route("add_member")]
   public async Task<IActionResult> AddMemberAsync([FromBody] FamilyMemberViewModel vm)
@@ -64,12 +70,4 @@ public class FamilyController : ControllerBase
     await _addFamilyMember.Invoke(vm);
     return Ok();
   }
-
-  /**
-  ユーザー編集API
-  **/
-
-  /**
-  ユーザー削除API
-  **/
 }

@@ -1,4 +1,4 @@
-using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.Domain.Models.Families;
 using Lifequest.Src.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
@@ -17,9 +17,11 @@ public class FamilyRepository : IFamilyRepository
     _mapper = mapper;
   }
 
-  /**
-  family.idより家族データを取得(存在しなければ、nullが返る)
-  **/
+  /// <summary>
+  /// 家族取得メソッド
+  /// </summary>
+  /// <param name="id"></param>
+  /// <returns></returns>
   public async Task<Family?> Get(int id)
   {
     var query = from families in _dbContext.FamilyTable where families.Id == (uint)id select families;
@@ -27,17 +29,18 @@ public class FamilyRepository : IFamilyRepository
     var family = familyData != null ? Family.FromRepository(familyData.Id, familyData.Name, familyData.DeletedAt, familyData.CreatedAt, familyData.UpdatedAt) : null;
     return family;
   }
-  
-  /**
-  Family作成リポジトリ
-  説明: FamilyMenberと同時作成になるので、同一トランザクション内で作成する。
-  **/
-  public async Task Create(Family family)
+
+  /// <summary>
+  /// 家族作成メソッド
+  /// </summary>
+  /// <param name="family"></param>
+  /// <returns>
+  /// 作成した家族IDを返す。
+  /// </returns>
+  public async Task<uint> Create(Family family)
   {
     using (var transaction = await _dbContext.Database.BeginTransactionAsync())
     {
-      try
-      {
         // family登録
         var familyData = _mapper.Map<FamilyTable>(family);
         await _dbContext.FamilyTable.AddAsync(familyData);
@@ -47,38 +50,20 @@ public class FamilyRepository : IFamilyRepository
           throw new Exception("family data can not be saved");
         }
         var familyId = await GetNewFamilyId();
-
-        // FamilyMemberをDBの型に変換する。
-        var familyMemberData = family.FamilyMembers.Select(member => 
-        {
-          member.AddFamilyId(familyId);
-          return _mapper.Map<FamilyMembersTable>(member);
-        });
-        // FamilyMember登録
-        await _dbContext.FamilyMembersTable.AddRangeAsync(familyMemberData);
-        affectedRow = await _dbContext.SaveChangesAsync();
-        if(affectedRow <= 0)
-        {
-          throw new Exception("userFamily data can not be saved");
-        }
-        await transaction.CommitAsync();
-      }
-      catch(Exception e)
-      {
-        await transaction.RollbackAsync();
-        throw e;
-      }
-
+        return familyId;
     }
   }
 
-  /**
-  家族メンバー追加メソッド
-  **/
-  public async Task AddFamilyMember(FamilyMember member)
+  /// <summary>
+  /// 新規家族メンバー追加メソッド
+  /// </summary>
+  /// <param name="member"></param>
+  /// <returns></returns>
+  /// <exception cref="Exception"></exception>
+  public async Task AddFamilyMember(List<FamilyMember> members)
   {
-    var famuliMemberData = _mapper.Map<FamilyMembersTable>(member);
-    await _dbContext.FamilyMembersTable.AddAsync(famuliMemberData);
+    var famuliMemberDataList = members.Select(member => _mapper.Map<FamilyMembersTable>(member)).ToList();
+    await _dbContext.FamilyMembersTable.AddRangeAsync(famuliMemberDataList);
     var result = await _dbContext.SaveChangesAsync();
     if (result <= 0)
     {
@@ -86,9 +71,10 @@ public class FamilyRepository : IFamilyRepository
     }
   }
 
-  ///
-  ///概要:  最新のfamilyIdを取得する。
-  ///
+  /// <summary>
+  /// 最新の家族IDを取得するメソッド
+  /// </summary>
+  /// <returns></returns>
   private async Task<uint> GetNewFamilyId()
   {
     var familyId = await _dbContext.FamilyTable.Select(e => e.Id).OrderByDescending(Id => Id).FirstOrDefaultAsync();

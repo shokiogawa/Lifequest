@@ -1,5 +1,6 @@
 using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.Domain.Models.BankHistory;
+using Lifequest.Src.Domain.Models.Banks;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
 namespace Lifequest.Src.ApplicationService.UseCase.BankUseCase;
@@ -18,13 +19,14 @@ public class UpdateBankTotalAmountUseCase
   public async Task Invoke(BankViewModel vm)
   {
     // 現在の銀行情報を取得
-    var currentBank = await _bankRepository.GetByIdAsync(vm.Id);
-    if(currentBank == null)
+    var targetBank = await _bankRepository.GetByIdAsync(vm.Id);
+    if(targetBank == null)
     {
       throw new Exception("対象データが存在しません");
     }
-    var updatedBank = Bank.Update(currentBank.Id, currentBank.FamilyId, currentBank.FamilymemberId, currentBank.Name, currentBank.Code, currentBank.BranchNumber, currentBank.BranchName, currentBank.AccountNumber, vm.TotalAmount);
-    var newBankHistory = BankHistory.NewCreate(currentBank.Id, currentBank.TotalAmount, updatedBank.TotalAmount);
-    await _bankRepository.UpdateTotalAmount(updatedBank, newBankHistory);
+    var newBankHistory = BankHistory.Create(targetBank.Id, targetBank.TotalAmount, vm.TotalAmount);
+    // 銀行合計額を修正
+    targetBank.ChangeTotalAmount(vm.TotalAmount);
+    await _bankRepository.UpdateTotalAmount(targetBank, newBankHistory);
   }
 }

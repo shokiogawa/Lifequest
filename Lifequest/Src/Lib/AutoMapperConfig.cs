@@ -1,10 +1,14 @@
 using AutoMapper;
 using Lifequest.Src.Infrastructure.Db.Tables;
-using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.Domain.Models.Users;
+using Lifequest.Src.Domain.Models.Banks;
+using Lifequest.Src.Domain.Models.BankHistory;
+using Lifequest.Src.Domain.Models.Schedules;
+using Lifequest.Src.Domain.Models.Families;
+using Lifequest.Src.Domain.Models.FixedCosts;
 using Lifequest.Src.ViewModel;
 using Lifequest.Src.ViewModel.ResponseModel;
-using Lifequest.Src.UseCase.ReadModel;
-
+using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase;
 namespace Lifequest.Src.Lib;
 
 public interface ICustomeMapper : IMapper{}
@@ -31,9 +35,9 @@ public class AutoMapperConfig :  Profile
       cfg.CreateMap<FixedCost, FixedCostTable>();
       cfg.CreateMap<Schedule, ScheduleTable>();
 
-      // リードモデル → レスポンスモデル
-      cfg.CreateMap<FamilyMemberReadModel, FamilyMemberResponseModel>();
-      cfg.CreateMap<FamilyInfoReadModel, FamilyInfoResponseModel>();
+      // Dto → レスポンスモデル
+      cfg.CreateMap<FamilyMemberDto, FamilyMemberResponseModel>();
+      cfg.CreateMap<FetchFamilyListUseCaseDto, FamilyInfoResponseModel>();
     });
     return config.CreateMapper();
   }

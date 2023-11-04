@@ -1,6 +1,5 @@
 using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.Domain.Entity;
-using Lifequest.Src.ViewModel;
+using Lifequest.Src.Domain.Models.FixedCosts;
 using AutoMapper;
 namespace Lifequest.Src.ApplicationService.UseCase.FixedCostUseCase;
 

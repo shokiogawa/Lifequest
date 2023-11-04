@@ -2,10 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
 using Lifequest.Src.ApplicationService.UseCase.ScheduleUseCase;
-using Microsoft.AspNetCore.Authorization;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Lifequest.Src.Domain.Entity;
 using Lifequest.Src.ViewModel.ResponseModel;
 
 namespace Lifequest.Src.Controllers;

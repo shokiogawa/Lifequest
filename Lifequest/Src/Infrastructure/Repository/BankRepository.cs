@@ -1,10 +1,10 @@
-using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.Domain.Models.Banks;
 using Lifequest.Src.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Lifequest.Src.Domain.IRepository;
 using Lifequest.Src.Infrastructure.Db.Tables;
-using Lifequest.Src;
+using Lifequest.Src.Domain.Models.BankHistory;
 namespace Lifequest.Src.Infrastructure.Repository;
 
 public class BankRepository : IBankRepository

@@ -1,6 +1,5 @@
 using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.Domain.Entity;
-using Lifequest.Src.ViewModel;
+using Lifequest.Src.Domain.Models.Users;
 using AutoMapper;
 namespace Lifequest.Src.ApplicationService.UseCase.UserUseCase;
 
@@ -14,6 +13,11 @@ public class FetchUserDetailUseCase
     _mapper = mapper;
   }
 
+  /// <summary>
+  /// ユーザー詳細情報を取得
+  /// </summary>
+  /// <param name="userId"></param>
+  /// <returns></returns>
   public async Task<User> Invoke(uint userId)
   {
     return await _userRepository.Get(userId);

@@ -1,25 +1,25 @@
 version: "3.8"
 services:
-  app:
-    container_name: lifequest-app
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment:
-      - ConnectionStrings__Mysql=server=lifequest-db;user=user;password=secret;database=lifequest
-      - Redis__ConnectionStrings=lifequest-redis
-    ports:
-      - 80:80
-      - 7017:7017
-    networks:
-      - lifequest_net
-    depends_on:
-      - db
-      - redis
-    tty: true
-    volumes:
-      - .:/lifequest
-    command: dotnet watch run
+  # app:
+  #   container_name: lifequest-app
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - ConnectionStrings__Mysql=server=lifequest-db;user=user;password=secret;database=lifequest
+  #     - Redis__ConnectionStrings=lifequest-redis
+  #   ports:
+  #     - 80:80
+  #     - 7017:7017
+  #   networks:
+  #     - lifequest_net
+  #   depends_on:
+  #     - db
+  #     - redis
+  #   tty: true
+  #   volumes:
+  #     - .:/lifequest
+  #   command: dotnet watch run
 
   db:
     container_name: lifequest-db

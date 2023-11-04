@@ -1,4 +1,4 @@
-namespace Lifequest.Src.Domain.Entity;
+namespace Lifequest.Src.Domain.Models.BankHistory;
 
 enum BankHistoryStatus
 {
@@ -10,7 +10,7 @@ enum BankHistoryStatus
 
 public class BankHistory 
 {
-  public BankHistory()
+  private BankHistory()
   {
 
   }
@@ -25,8 +25,16 @@ public class BankHistory
   public DateTime CreatedAt {get; private set;}
   public DateTime UpdatedAt {get; private set;}
 
-  // 銀行履歴作成時に使用するメソッド
-  public static BankHistory NewCreate(uint bankId, uint currentAmount,uint updatedAmount)
+  /// <summary>
+  /// 生成用コンストラクタ
+  /// </summary>
+  /// <param name="bankId"></param>
+  /// <param name="currentAmount"></param>
+  /// <param name="updatedAmount"></param>
+  /// <returns></returns>
+  /// <exception cref="ArgumentException"></exception>
+  /// <exception cref="Exception"></exception>
+  public static BankHistory Create(uint bankId, uint currentAmount,uint updatedAmount)
   {
     if(bankId <= 0)
     {
@@ -50,7 +58,18 @@ public class BankHistory
     };
   }
 
-  // リポジトリからデータ取得
+  /// <summary>
+  /// 再構成用コンストラクタ
+  /// </summary>
+  /// <param name="id"></param>
+  /// <param name="bankId"></param>
+  /// <param name="totalAmountSnaoshot"></param>
+  /// <param name="differencesAmount"></param>
+  /// <param name="status"></param>
+  /// <param name="deletedAt"></param>
+  /// <param name="createdAt"></param>
+  /// <param name="updatedAt"></param>
+  /// <returns></returns>
   public static BankHistory FromRepository(uint id,uint bankId, uint totalAmountSnaoshot, int differencesAmount, string status, DateTime deletedAt, DateTime createdAt, DateTime updatedAt)
   {
     return new BankHistory

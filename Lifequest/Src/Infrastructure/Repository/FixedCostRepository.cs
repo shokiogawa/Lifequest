@@ -1,4 +1,4 @@
-using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.Domain.Models.FixedCosts;
 using Lifequest.Src.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
