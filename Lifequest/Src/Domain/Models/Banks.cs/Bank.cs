@@ -8,12 +8,12 @@ public class Bank
 
   public uint FamilymemberId {get; private set;}
   public string Name {get; private set;}
-  public string? Code {get; private set;} = "";
+  public string Code {get; private set;} = "";
 
-  public UInt16? BranchNumber {get ; private set;}
+  public ushort BranchNumber {get ; private set;}
 
-  public string? BranchName {get; private set;} = "";
-  public uint? AccountNumber {get; private set;}
+  public string BranchName {get; private set;} = "";
+  public uint AccountNumber {get; private set;}
   public uint TotalAmount {get; private set;}
   public DateTime DeletedAt {get; private set;}
   public DateTime CreatedAt {get; private set;}
@@ -46,7 +46,7 @@ public class Bank
   /// <param name="totalAmount"></param>
   /// <exception cref="ArgumentException"></exception>
   /// <exception cref="ArgumentNullException"></exception>
-  public static Bank Create (uint familyId, uint familymemberId ,string name, string? code , UInt16? branchNumber, string? branchName, uint? accountNumber, uint totalAmount)
+  public static Bank Create (uint familyId, uint familymemberId ,string name, string code , ushort branchNumber, string branchName, uint accountNumber, uint totalAmount)
   {
     if(familyId <= 0)
     {
@@ -98,10 +98,10 @@ public class Bank
     uint familyId,
     uint familymemberId, 
     string name, 
-    string? code,
-    UInt16? branchNumber, 
-    string? branchName, 
-    uint? accountNumber, 
+    string code,
+    ushort branchNumber, 
+    string branchName, 
+    uint accountNumber, 
     uint totalAmount, 
     DateTime deletedAt, 
     DateTime createdAt, 

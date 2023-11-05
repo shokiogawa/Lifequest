@@ -27,7 +27,7 @@ public class BankRepository : IBankRepository
   {
     var query = from banks in _dbContext.BankTable where banks.FamilyId == familyId && banks.DeletedAt == Constant.DeletedAt select banks;
     var bankDataList = await query.ToListAsync();
-    var bank = bankDataList.Select( _ => Bank.FromRepository(_.Id, _.FamilyId, _.FamilymemberId, _.Name, _.Code, _.BranchNumber, _.BranchName, _.AccountNumber, _.TotalAmount, _.DeletedAt, _.CreatedAt, _.UpdatedAt)).ToList();
+    var bank = bankDataList.Select( _ => Bank.FromRepository(_.Id, _.FamilyId, _.FamilymemberId, _.Name, _.Code, _.BranchNumber ?? default, _.BranchName, _.AccountNumber ?? default, _.TotalAmount, _.DeletedAt, _.CreatedAt, _.UpdatedAt)).ToList();
     return bank;
   }
 
@@ -128,7 +128,7 @@ public class BankRepository : IBankRepository
   {
     var query = from banks in _dbContext.BankTable where banks.Id == bankId select banks;
     var bank = await query.FirstOrDefaultAsync();
-    return bank != null ?  Bank.FromRepository(bank.Id, bank.FamilyId, bank.FamilymemberId, bank.Name, bank.Code, bank.BranchNumber, bank.BranchName, bank.AccountNumber, bank.TotalAmount, bank.DeletedAt, bank.CreatedAt, bank.UpdatedAt) : null;
+    return bank != null ?  Bank.FromRepository(bank.Id, bank.FamilyId, bank.FamilymemberId, bank.Name, bank.Code, bank.BranchNumber ?? default, bank.BranchName, bank.AccountNumber ?? default, bank.TotalAmount, bank.DeletedAt, bank.CreatedAt, bank.UpdatedAt) : null;
   }
 
   /// <summary>
@@ -148,10 +148,10 @@ public class BankRepository : IBankRepository
         bank.FamilyId, 
         bank.FamilymemberId, 
         bank.Name, 
-        bank.Code, 
-        bank.BranchNumber, 
-        bank.BranchName, 
-        bank.AccountNumber, 
+        bank.Code ?? "", 
+        bank.BranchNumber ?? default, 
+        bank.BranchName ?? "", 
+        bank.AccountNumber ?? default, 
         bank.TotalAmount, 
         bank.DeletedAt, 
         bank.CreatedAt, 
@@ -174,7 +174,7 @@ public class BankRepository : IBankRepository
   {
     var query = from banks in _dbContext.BankTable where banks.Id == bankId && banks.DeletedAt == Constant.DeletedAt select banks;
     var bankData = await query.FirstOrDefaultAsync();
-    var bank = bankData != null ? Bank.FromRepository(bankData.Id, bankData.FamilyId, bankData.FamilymemberId, bankData.Name, bankData.Code, bankData.BranchNumber, bankData.BranchName, bankData.AccountNumber, bankData.TotalAmount, bankData.DeletedAt, bankData.CreatedAt, bankData.UpdatedAt) : null;
+    var bank = bankData != null ? Bank.FromRepository(bankData.Id, bankData.FamilyId, bankData.FamilymemberId, bankData.Name, bankData.Code, bankData.BranchNumber ?? default, bankData.BranchName, bankData.AccountNumber ?? default, bankData.TotalAmount, bankData.DeletedAt, bankData.CreatedAt, bankData.UpdatedAt) : null;
     return bank;
   }
 

@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using Lifequest.Src.ViewModel;
 using AutoMapper;
-using Lifequest.Src.ApplicationService.UseCase.ScheduleUseCase;
+using Lifequest.Src.ApplicationService.UseCase.ScheduleUseCase.Command;
+using Lifequest.Src.ApplicationService.UseCase.ScheduleUseCase.Query;
 using Lifequest.Src.ViewModel.ResponseModel;
+using Lifequest.Src.ClientModel.ResponseModel;
+using Lifequest.Src.ClientModel.RequestModel;
 
 namespace Lifequest.Src.Controllers;
 
@@ -31,12 +33,12 @@ public class ScheduleController : ControllerBase
   /// <returns></returns>
   [HttpGet]
   [Route("family")]
-  public async Task<ActionResult<ScheduleResponseModel>> GetListByFamilyIdAsync([FromQuery] uint id)
+  public async Task<ActionResult<ScheduleListResponseModel>> GetListByFamilyIdAsync([FromQuery] uint id)
   {
     var scheduleList = await _fetchScheduleByFamilyIdUseCase.Invoke(id);
     var scheduleViewModelList = scheduleList.Select(schedule => 
     {
-      return new ScheduleViewModel
+      return new ScheduleResponseModel
       {
         Id = schedule.Id,
         FamilyId = schedule.FamilyId,
@@ -51,7 +53,7 @@ public class ScheduleController : ControllerBase
         CreatedAt = schedule.UpdatedAt
       };
     }).ToList();
-    return new ScheduleResponseModel
+    return new ScheduleListResponseModel
     {
       ScheduleList = scheduleViewModelList
     };
@@ -63,10 +65,18 @@ public class ScheduleController : ControllerBase
   /// <param name="vm"></param>
   /// <returns></returns>
   [HttpPost]
-  public async Task<IActionResult> CreateAsync([FromBody] ScheduleViewModel vm)
+  public async Task<IActionResult> CreateAsync([FromBody] SchedulePostRequestModel request)
   {
-    Console.WriteLine(vm.FamilyId);
-    await _createScheduleUseCase.Invoke(vm);
+    var cm = new CreateScheduleCommand
+    {
+      FamilyId = request.FamilyId,
+      Title = request.Title,
+      Content = request.Content,
+      StartDateTime = DateTime.Parse(request.StartDateTime),
+      EndDateTime = DateTime.Parse(request.EndDateTime),
+      IsAllDayFlag = request.IsAllDayFlag
+    };
+    await _createScheduleUseCase.Invoke(cm);
     return Ok();
   }
 }

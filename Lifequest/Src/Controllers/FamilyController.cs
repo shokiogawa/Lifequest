@@ -2,9 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Lifequest.Src.ApplicationService.IQueryService;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
-using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase;
+using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase.Command;
 using Lifequest.Src.ViewModel.ResponseModel;
 using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.ClientModel.RequestModel;
 namespace Lifequest.Src.Controllers;
 
 [ApiController]
@@ -13,17 +14,17 @@ public class FamilyController : ControllerBase
 {
   private readonly CreateFamilyUseCase _createFamilyUseCase;
 
-  private readonly AddFamilyMember _addFamilyMember;
+  private readonly AddFamilyMemberUseCase _addFamilyMemberUseCase;
 
   private readonly AuthUserContext _userContext;
 
   private readonly IFamilyQueryService _familyQueryService;
   private readonly IMapper _mapper;
   
-  public FamilyController(CreateFamilyUseCase createFamilyUseCase, AddFamilyMember addFamilyMember,IFamilyQueryService familyQueryService,AuthUserContext userContext ,IMapper mapper)
+  public FamilyController(CreateFamilyUseCase createFamilyUseCase, AddFamilyMemberUseCase addFamilyMemberUseCase,IFamilyQueryService familyQueryService,AuthUserContext userContext ,IMapper mapper)
   {
     _createFamilyUseCase = createFamilyUseCase;
-    _addFamilyMember = addFamilyMember;
+    _addFamilyMemberUseCase = addFamilyMemberUseCase;
     _familyQueryService = familyQueryService;
     _userContext = userContext;
     _mapper = mapper;
@@ -52,9 +53,24 @@ public class FamilyController : ControllerBase
   /// <param name="vm"></param>
   /// <returns></returns>
   [HttpPost]
-  public async Task<IActionResult> CreateAsync([FromBody] CreateFamilyViewModel vm)
+  public async Task<IActionResult> CreateAsync([FromBody] FamilyPostRequestModel request)
   {
-    await _createFamilyUseCase.Invoke(vm);
+    var cm = new CreateFamilyCommand
+    {
+      Id = request.Id,
+      Name = request.Name,
+      FamilyMembers = request.FamilyMembers.Select(_ => new CreateFamilyMemberCommand
+      {
+        UserId = _.UserId,
+        FamilyId = _.FamilyId,
+        IsOwner = _.IsOwner,
+        Position = _.Position,
+        CreatedAt = _.CreatedAt,
+        UpdatedAt = _.UpdatedAt,
+        DeletedAt = _.DeletedAt
+      }).ToList()
+    };
+    await _createFamilyUseCase.Invoke(cm);
     return Ok();
   }
 
@@ -65,9 +81,10 @@ public class FamilyController : ControllerBase
   /// <returns></returns>
   [HttpPost]
   [Route("add_member")]
-  public async Task<IActionResult> AddMemberAsync([FromBody] FamilyMemberViewModel vm)
+  public async Task<IActionResult> AddMemberAsync([FromBody] FamilyMemberPostRequestModel request)
   {
-    await _addFamilyMember.Invoke(vm);
+    var cm = new AddFamilyMemberCommand{};
+    await _addFamilyMemberUseCase.Invoke(cm);
     return Ok();
   }
 }

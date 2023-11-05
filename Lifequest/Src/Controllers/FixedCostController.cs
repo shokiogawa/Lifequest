@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using Lifequest.Src.ViewModel;
 using AutoMapper;
-using Lifequest.Src.ApplicationService.UseCase.FixedCostUseCase;
+using Lifequest.Src.ApplicationService.UseCase.FixedCostUseCase.Query;
 using Microsoft.AspNetCore.Authorization;
 using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.ClientModel.ResponseModel;
+using Lifequest.Src.ClientModel.RequestModel;
+using Lifequest.Src.ApplicationService.UseCase.FixedCostUseCase.Command;
 
 namespace Lifequest.Src.Controllers;
 
@@ -38,11 +40,11 @@ public class FixedCostController : ControllerBase
   /// <param name="familyId"></param>
   /// <returns></returns>
   [HttpGet]
-  public async Task<ActionResult<List<FixedCostViewModel>>> GetAsync([FromQuery] uint familyId)
+  public async Task<ActionResult<List<FixedCostResponseModel>>> GetAsync([FromQuery] uint familyId)
   {
     var fixedCostList = await _fetchFixedCostByFamilyIdUseCase.Invoke(familyId);
-    var fixedCostVmList = fixedCostList.Select(fixedCost => _mapper.Map<FixedCostViewModel>(fixedCost)).ToList();
-    return fixedCostVmList;
+    var response = fixedCostList.Select(fixedCost => _mapper.Map<FixedCostResponseModel>(fixedCost)).ToList();
+    return response;
   }
 
   /// <summary>
@@ -51,9 +53,15 @@ public class FixedCostController : ControllerBase
   /// <param name="vm"></param>
   /// <returns></returns>
   [HttpPost]
-  public async Task<IActionResult> CreateAsync([FromBody] FixedCostViewModel vm)
+  public async Task<IActionResult> CreateAsync([FromBody] FixedCostRequestModel request)
   {
-    await _createFixedCostUseCase.Invoke(vm);
+    var cm = new CreateFixedCostCommand
+    {
+      FamilyId = request.FamilyId,
+      Name = request.Name,
+      Expose = request.Expose,
+    };
+    await _createFixedCostUseCase.Invoke(cm);
     return Ok();
   }
 }

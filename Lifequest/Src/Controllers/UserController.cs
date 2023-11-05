@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Lifequest.Src.ViewModel;
 using AutoMapper;
-using Lifequest.Src.ApplicationService.UseCase.UserUseCase;
+using Lifequest.Src.ApplicationService.UseCase.UserUseCase.Command;
+using Lifequest.Src.ApplicationService.UseCase.UserUseCase.Query;
 namespace Lifequest.Src.Controllers;
 
 [ApiController]
@@ -25,21 +26,30 @@ public class UserController : ControllerBase
   /// <param name="id"></param>
   /// <returns></returns>
   [HttpGet]
-  public async Task<ActionResult<UserViewModel>> GetAsync([FromQuery] uint id)
+  public async Task<ActionResult<UserResponseModel>> GetAsync([FromQuery] uint id)
   {
     var user = await _fertchUserDetailUseCase.Invoke(id);
-    return _mapper.Map<UserViewModel>(user);
+    return _mapper.Map<UserResponseModel>(user);
   }
 
   /// <summary>
   /// ユーザー作成API
   /// </summary>
-  /// <param name="vm"></param>
+  /// <param name="request"></param>
   /// <returns></returns>
   [HttpPost]
-  public async Task<IActionResult> CreateAsync([FromBody] UserViewModel vm)
+  public async Task<IActionResult> CreateAsync([FromBody] UserPostRequestModel request)
   {
-    await _createUserUseCase.Invoke(vm);
+    var cm = new CreateUserCommand
+    {
+      Uid = request.Uid,
+      Email = request.Email,
+      Name = request.Name,
+      Birthday = DateTime.Parse(request.Birthday),
+      Age = request.Age,
+      Gender = request.Gender,
+    };
+    await _createUserUseCase.Invoke(cm);
     // CreatedAtActionメソッドを使用予定。
     return Ok();
   }

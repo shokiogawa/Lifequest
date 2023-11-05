@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Lifequest.Src.ApplicationService.UseCase.BankUseCase;
-using Lifequest.Src.ViewModel;
+using Lifequest.Src.ApplicationService.UseCase.BankUseCase.Command;
+using Lifequest.Src.ApplicationService.UseCase.BankUseCase.Query;
+using Lifequest.Src.ClientModel.RequestModel;
 using Lifequest.Src.ViewModel.ResponseModel;
 using AutoMapper;
 namespace Lifequest.Src.Controllers;
@@ -34,9 +35,19 @@ public class BankController : ControllerBase
   /// <param name="vm"></param>
   /// <returns></returns>
   [HttpPost]
-  public async Task<IActionResult> CreateAsync([FromBody] BankViewModel vm)
+  public async Task<IActionResult> CreateAsync([FromBody] BankPostRequestModel request)
   {
-    await _createBankUseCase.Invoke(vm);
+    var cm = new CreateBankCommand
+    {
+      FamilyId = request.FamilyId,
+      FamilymemberId = request.FamilymemberId,
+      Name = request.Name,
+      Code = request.Code,
+      BranchName = request.BranchName,
+      AccountNumber = request.AccountNumber,
+      TotalAmount = request.TotalAmount
+    };
+    await _createBankUseCase.Invoke(cm);
     return Ok();
   }
 
@@ -47,9 +58,14 @@ public class BankController : ControllerBase
   /// <returns></returns>
   [HttpPost]
   [Route("totalAmount")]
-  public async Task<IActionResult> UpdateTotalAmountAsync([FromBody] BankViewModel vm)
+  public async Task<IActionResult> UpdateTotalAmountAsync([FromBody] BankPostRequestModel request)
   {
-    await _updateBankTotalAmountUseCase.Invoke(vm);
+    var cm = new UpdateBankTotalAmoutntCommand
+    {
+      Id = request.Id,
+      TotalAmount = request.TotalAmount
+    };
+    await _updateBankTotalAmountUseCase.Invoke(cm);
     return Ok();
   }
 

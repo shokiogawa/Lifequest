@@ -19,13 +19,6 @@ public class AutoMapperConfig :  Profile
   {
     var config = new MapperConfiguration(cfg => 
     {
-
-      // アプリ内 → ブラウザ
-      cfg.CreateMap<User, UserViewModel>();
-      cfg.CreateMap<Bank, BankViewModel>();
-      cfg.CreateMap<FixedCost, FixedCostViewModel>();
-      cfg.CreateMap<Schedule, ScheduleViewModel>();
-
       // アプリ → DB
       cfg.CreateMap<User, UserTable>();
       cfg.CreateMap<Family, FamilyTable>();
@@ -34,10 +27,6 @@ public class AutoMapperConfig :  Profile
       cfg.CreateMap<BankHistory, BankHistoryTable>();
       cfg.CreateMap<FixedCost, FixedCostTable>();
       cfg.CreateMap<Schedule, ScheduleTable>();
-
-      // Dto → レスポンスモデル
-      cfg.CreateMap<FamilyMemberDto, FamilyMemberResponseModel>();
-      cfg.CreateMap<FetchFamilyListUseCaseDto, FamilyInfoResponseModel>();
     });
     return config.CreateMapper();
   }

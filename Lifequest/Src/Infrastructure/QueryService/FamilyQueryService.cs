@@ -2,7 +2,7 @@ using Lifequest.Src.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Lifequest.Src.ApplicationService.IQueryService;
-using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase;
+using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase.Query;
 namespace Lifequest.Src.Infrastructure.Repository;
 
 public class FamilyQueryService : IFamilyQueryService

@@ -5,19 +5,10 @@ using Google.Apis.Auth.OAuth2;
 using Lifequest.Src.Infrastructure.Db;
 using Lifequest.Src.Lib;
 using AutoMapper;
-using Lifequest.Src.Infrastructure.Repository;
-using Lifequest.Src.Domain.IRepository;
-using Lifequest.Src.ApplicationService.IQueryService;
-using Lifequest.Src.ApplicationService.UseCase.BankUseCase;
-using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase;
-using Lifequest.Src.ApplicationService.UseCase.FixedCostUseCase;
-using Lifequest.Src.ApplicationService.UseCase.ScheduleUseCase;
-using Lifequest.Src.ApplicationService.UseCase.UserUseCase;
 using Lifequest.Src;
 using Microsoft.EntityFrameworkCore;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
-using Lifequest.Src.Domain.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -116,38 +107,8 @@ builder.Services.AddDbContext<LifequestDbContext>(options =>
     options.UseMySql(connectionString, serverVersion);
 });
 
-// アクセスユーザーの情報を取得
-builder.Services.AddScoped<AuthUserContext>();
-
-// repository
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IBankRepository, BankRepository>();
-builder.Services.AddScoped<IFamilyRepository, FamilyRepository>();
-builder.Services.AddScoped<IFixedCostRepository, FixedCostRepository>();
-builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
-
-// query service
-builder.Services.AddScoped<IUserQueryService, UserQueryService>();
-builder.Services.AddScoped<IBankQueryService, BankQueryService>();
-builder.Services.AddScoped<IFixedCostQueryService, FixedCostQueryService>();
-builder.Services.AddScoped<IScheduleQueryService, ScheduleQueryService>();
-builder.Services.AddScoped<IFamilyQueryService, FamilyQueryService>();
-
-// usecase
-builder.Services.AddScoped<CreateUserUseCase>();
-builder.Services.AddScoped<CreateFamilyUseCase>();
-builder.Services.AddScoped<CreateBankUseCase>();
-builder.Services.AddScoped<CreateFixedCostUseCase>();
-builder.Services.AddScoped<UpdateBankTotalAmountUseCase>();
-builder.Services.AddScoped<CreateScheduleUseCase>();
-builder.Services.AddScoped<AddFamilyMember>();
-builder.Services.AddScoped<FetchUserDetailUseCase>();
-builder.Services.AddScoped<FetchBankListByFamilyIdUseCase>();
-builder.Services.AddScoped<FetchFamilyListUseCase>();
-builder.Services.AddScoped<FetchFixedCostByFamilyIdUseCase>();
-builder.Services.AddScoped<FetchScheduleByFamilyIdUseCase>();
-
-
+// 依存関係解消
+builder.Services.AddInitialized();
 // コントローラー
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
