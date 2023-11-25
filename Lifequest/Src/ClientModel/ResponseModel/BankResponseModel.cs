@@ -25,6 +25,12 @@ public class BankResponseModel
   [JsonPropertyName("family_member_id")]
   public uint FamilymemberId {get;  set;}
 
+  [JsonPropertyName("category_name")]
+  public string CategoryName {get; set;}
+
+  [JsonPropertyName("order_number")]
+  public uint OrderNumber {get; set;}
+
   [JsonPropertyName("name")]
   public string Name {get;  set;} = default!;
 

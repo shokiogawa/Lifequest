@@ -13,6 +13,12 @@ public class Family
 
   public List<FamilyMember> FamilyMembers {get; private set;} = new List<FamilyMember>();
 
+  /// <summary>
+  /// 生成メソッド
+  /// </summary>
+  /// <param name="name"></param>
+  /// <returns></returns>
+  /// <exception cref="ArgumentNullException"></exception>
   public static Family Create (string name)
   {
     // 家族名が空の場合は例外

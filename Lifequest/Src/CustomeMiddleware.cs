@@ -59,6 +59,7 @@ public static class CustomeMiddlewareExtensions
     services.AddScoped<CreateBankUseCase>();
     services.AddScoped<CreateFixedCostUseCase>();
     services.AddScoped<UpdateBankTotalAmountUseCase>();
+    services.AddScoped<UpdateBankUseCase>();
     services.AddScoped<CreateScheduleUseCase>();
     services.AddScoped<AddFamilyMemberUseCase>();
     services.AddScoped<FetchUserDetailUseCase>();
@@ -66,5 +67,6 @@ public static class CustomeMiddlewareExtensions
     services.AddScoped<FetchFamilyListUseCase>();
     services.AddScoped<FetchFixedCostByFamilyIdUseCase>();
     services.AddScoped<FetchScheduleByFamilyIdUseCase>();
+    services.AddScoped<FetchBankDetailUseCase>();
     }
     }

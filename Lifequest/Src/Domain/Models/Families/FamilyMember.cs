@@ -10,10 +10,21 @@ public class FamilyMember
 
   public bool IsOwner {get; set;}
 
+  /// <summary>
+  /// コンストラクタは内部で行う。
+  /// </summary>
   private FamilyMember()
   {
   }
 
+  /// <summary>
+  /// 生成メソッド
+  /// </summary>
+  /// <param name="userId"></param>
+  /// <param name="familyId"></param>
+  /// <param name="position"></param>
+  /// <param name="isOwner"></param>
+  /// <returns></returns>
   public static FamilyMember Create(uint userId, uint familyId,string position, bool isOwner)
   {
     return new FamilyMember

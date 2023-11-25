@@ -69,4 +69,9 @@ erDiagram
     references family_member_id FK
   }
 
+  bank_categories{
+    bigint id PK
+
+  }
+
 ```

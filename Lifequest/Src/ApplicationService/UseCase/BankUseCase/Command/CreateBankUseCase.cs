@@ -14,10 +14,20 @@ public class CreateBankUseCase
     _mapper = mapper;
   }
 
-  public async Task Invoke(CreateBankCommand vm)
+  public async Task Invoke(CreateBankCommand cm)
   {
+    // 銀行情報の値オブジェクト作成
+    BankInfo bankInfo = BankInfo.Create(
+      cm.Name, 
+      cm.Code,
+      cm.BranchNumber, 
+      cm.BranchName, 
+      cm.AccountNumber, 
+      cm.TotalAmount,
+      cm.CategoryName
+    );
     // Bankオブジェクト生成
-    Bank bank = Bank.Create(vm.FamilyId, vm.FamilymemberId, vm.Name, vm.Code, vm.BranchNumber, vm.BranchName, vm.AccountNumber, vm.TotalAmount);
+    Bank bank = Bank.Create(cm.FamilyId, cm.FamilymemberId,cm.OrderNumber, bankInfo);
     // 家族作成
     await _bankRepository.Create(bank);
   }

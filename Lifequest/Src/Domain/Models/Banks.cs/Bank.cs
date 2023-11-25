@@ -2,36 +2,32 @@ namespace Lifequest.Src.Domain.Models.Banks;
 
 public class Bank 
 {
+  /// <summary>
+  /// 銀行ID
+  /// </summary>
   public uint Id {get; private set;}
 
+  /// <summary>
+  /// 家族ID
+  /// </summary>
   public uint FamilyId {get; private set;}
 
+  /// <summary>
+  /// 家族メンバーID
+  /// </summary>
   public uint FamilymemberId {get; private set;}
-  public string Name {get; private set;}
-  public string Code {get; private set;} = "";
+  /// <summary>
+  /// 表示順番
+  /// </summary>
+  public uint OrderNumber {get; set;}
 
-  public ushort BranchNumber {get ; private set;}
-
-  public string BranchName {get; private set;} = "";
-  public uint AccountNumber {get; private set;}
-  public uint TotalAmount {get; private set;}
+  /// <summary>
+  /// 銀行情報
+  /// </summary>
+  public BankInfo BankInfo {get; private set;}
   public DateTime DeletedAt {get; private set;}
   public DateTime CreatedAt {get; private set;}
   public DateTime UpdatedAt {get; private set;}
-
-  /// <summary>
-  /// 合計貯金額を変更
-  /// </summary>
-  /// <param name="totalAmount"></param>
-  /// <exception cref="ArgumentException"></exception>
-  public void ChangeTotalAmount (uint totalAmount)
-  {
-    if(totalAmount < 0)
-    {
-      throw new ArgumentException(nameof(totalAmount));
-    };
-   TotalAmount = totalAmount;
-  }
 
   /// <summary>
   /// 生成用コンストラクタ
@@ -46,7 +42,11 @@ public class Bank
   /// <param name="totalAmount"></param>
   /// <exception cref="ArgumentException"></exception>
   /// <exception cref="ArgumentNullException"></exception>
-  public static Bank Create (uint familyId, uint familymemberId ,string name, string code , ushort branchNumber, string branchName, uint accountNumber, uint totalAmount)
+  public static Bank Create (
+    uint familyId, 
+    uint familymemberId,
+    uint orderNumber,
+    BankInfo bankInfo)
   {
     if(familyId <= 0)
     {
@@ -56,24 +56,12 @@ public class Bank
     {
       throw new ArgumentException(nameof(familymemberId));
     }
-    if(string.IsNullOrEmpty(name))
-    {
-      throw new ArgumentNullException(nameof(name));
-    }
-    if(totalAmount < 0)
-    {
-      throw new ArgumentException(nameof(totalAmount));
-    }
     return new Bank
     {
     FamilyId = familyId,
     FamilymemberId = familymemberId,
-    Name = name,
-    Code = code,
-    BranchNumber = branchNumber,
-    BranchName = branchName,
-    AccountNumber = accountNumber,
-    TotalAmount = totalAmount
+    OrderNumber = orderNumber,
+    BankInfo = bankInfo 
     };
   }
 
@@ -93,16 +81,12 @@ public class Bank
   /// <param name="createdAt"></param>
   /// <param name="updatedAt"></param>
   /// <returns></returns>
-  public static Bank FromRepository(
+  public static Bank Reconstructor(
     uint id,
     uint familyId,
     uint familymemberId, 
-    string name, 
-    string code,
-    ushort branchNumber, 
-    string branchName, 
-    uint accountNumber, 
-    uint totalAmount, 
+    uint orderNumber,
+    BankInfo bankInfo,
     DateTime deletedAt, 
     DateTime createdAt, 
     DateTime updatedAt)
@@ -112,16 +96,35 @@ public class Bank
       Id = id,
       FamilyId = familyId,
       FamilymemberId = familymemberId,
-      Name = name,
-      Code = code,
-      BranchName = branchName,
-      BranchNumber = branchNumber,
-      AccountNumber = accountNumber,
-      TotalAmount = totalAmount,
+      OrderNumber = orderNumber,
+      BankInfo = bankInfo,
       DeletedAt = deletedAt,
       UpdatedAt = updatedAt,
       CreatedAt = createdAt
     };
+  }
+
+  /// <summary>
+  /// 合計貯金額を変更
+  /// </summary>
+  /// <param name="totalAmount"></param>
+  /// <exception cref="ArgumentException"></exception>
+  public void UpdateTotalAmount (uint totalAmount)
+  {
+    if(totalAmount < 0)
+    {
+      throw new ArgumentException(nameof(totalAmount));
+    };
+    BankInfo.ChangeTotalAmount(totalAmount);
+  }
+
+  /// <summary>
+  /// 銀行情報編集
+  /// </summary>
+  /// <param name="newBankInfo"></param>
+  public void UpdateBankInfo(BankInfo newBankInfo)
+  {
+    BankInfo = newBankInfo;
   }
   /// <summary>
   /// インスタンス生成を内部で制御

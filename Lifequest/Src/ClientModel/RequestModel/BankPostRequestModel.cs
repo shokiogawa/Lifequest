@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 namespace Lifequest.Src.ClientModel.RequestModel;
 
-public class BankPostRequestModel
+public class BankRequestModel
 {
   [JsonPropertyName("id")]
   public uint Id {get; set;}
@@ -12,6 +12,12 @@ public class BankPostRequestModel
   [JsonPropertyName("family_member_id")]
   public uint FamilymemberId {get;  set;}
 
+  [JsonPropertyName("category_name")]
+  public string CategoryName {get; set;} = default!;
+
+  [JsonPropertyName("order_number")]
+  public uint OrderNumber {get; set;}
+
   [JsonPropertyName("name")]
   public string Name {get;  set;} = default!;
 
@@ -20,7 +26,7 @@ public class BankPostRequestModel
 
   [JsonPropertyName("branch_number")]
 
-  public short BranchNumber {get ; set;}
+  public ushort BranchNumber {get ; set;}
 
   [JsonPropertyName("branch_name")]
   public string BranchName {get; set;} = "";

@@ -3,6 +3,7 @@ using System;
 using Lifequest.Src.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,45 +11,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lifequest.Migrations
 {
     [DbContext(typeof(LifequestDbContext))]
-    partial class LifequestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231120111737_CreateBankHistoriesTable")]
+    partial class CreateBankHistoriesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("Lifequest.Src.Infrastructure.Db.Tables.BankCategoriesMst", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateTime>("DeletedAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("deleted_at");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(32)")
-                        .HasColumnName("name");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("bank_categories_mst");
-                });
 
             modelBuilder.Entity("Lifequest.Src.Infrastructure.Db.Tables.BankHistoryTable", b =>
                 {
@@ -112,11 +83,6 @@ namespace Lifequest.Migrations
                         .HasColumnType("smallint unsigned")
                         .HasColumnName("branch_number");
 
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("category_name");
-
                     b.Property<string>("Code")
                         .HasColumnType("longtext")
                         .HasColumnName("code");
@@ -142,10 +108,6 @@ namespace Lifequest.Migrations
                         .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("name");
-
-                    b.Property<uint>("OrderNumber")
-                        .HasColumnType("int unsigned")
-                        .HasColumnName("order_number");
 
                     b.Property<uint>("TotalAmount")
                         .HasColumnType("int unsigned")

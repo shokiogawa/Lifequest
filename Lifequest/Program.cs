@@ -25,6 +25,19 @@ var connectionString = configuration.GetConnectionString("Mysql");
 MySqlServerVersion serverVersion = new (new Version(5, 7, 0));
 Console.WriteLine(settings.Redis.ConnectionStrings);
 Console.WriteLine(settings.Redis.InstanceName);
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+Console.WriteLine("コンソール");
+// CORS
+builder.Services.AddCors(options => 
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins, 
+    policy => 
+    {
+        policy.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 
 // redis設定追加
 builder.Services.AddDistributedRedisCache(options => {
@@ -82,13 +95,13 @@ builder.Services
         // トークン認証失敗時
         OnAuthenticationFailed = context => 
         {
-            Console.WriteLine("認証失敗");
+            // Console.WriteLine("認証失敗");
             return Task.CompletedTask;
         },
         // トークン認証に成功時
         OnTokenValidated = context => 
         {
-            Console.WriteLine("認証成功");
+            // Console.WriteLine("認証成功");
             return Task.CompletedTask;
         },
         
@@ -124,8 +137,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
 

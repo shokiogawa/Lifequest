@@ -25,9 +25,27 @@ public class BankRepository : IBankRepository
   /// <returns></returns>
   public async Task<List<Bank>>  GetFamilyBanks(uint familyId)
   {
-    var query = from banks in _dbContext.BankTable where banks.FamilyId == familyId && banks.DeletedAt == Constant.DeletedAt select banks;
+    var query = from banks in _dbContext.BankTable where 
+                     banks.FamilyId == familyId && 
+                     banks.DeletedAt == Constant.DeletedAt
+                     orderby banks.OrderNumber ascending
+                     select banks;
+
     var bankDataList = await query.ToListAsync();
-    var bank = bankDataList.Select( _ => Bank.FromRepository(_.Id, _.FamilyId, _.FamilymemberId, _.Name, _.Code, _.BranchNumber ?? default, _.BranchName, _.AccountNumber ?? default, _.TotalAmount, _.DeletedAt, _.CreatedAt, _.UpdatedAt)).ToList();
+    var bank = bankDataList.Select( _  => {
+      var bankInfo = BankInfo.Reconstruct(_.Name, _.Code ?? "", _.BranchNumber ?? default, _.BranchName ?? "", _.AccountNumber ?? default, _.TotalAmount, _.CategoryName);
+      return Bank.Reconstructor(
+      _.Id, 
+      _.FamilyId, 
+      _.FamilymemberId,
+      _.OrderNumber,
+      bankInfo,
+      _.DeletedAt, 
+      _.CreatedAt, 
+      _.UpdatedAt
+      );
+    })
+      .ToList();
     return bank;
   }
 
@@ -40,7 +58,17 @@ public class BankRepository : IBankRepository
   {
     try
     {
-      var bankData = _mapper.Map<BankTable>(bank);
+      var bankData = new BankTable
+      {
+        FamilyId = bank.FamilyId,
+        FamilymemberId = bank.FamilymemberId,
+        Name = bank.BankInfo.Name,
+        Code = bank.BankInfo.Code,
+        BranchName = bank.BankInfo.BranchName,
+        BranchNumber = bank.BankInfo.BranchNumber,
+        AccountNumber = bank.BankInfo.AccountNumber,
+        TotalAmount = bank.BankInfo.TotalAmount,
+      };
       await _dbContext.BankTable.AddAsync(bankData);
       var affectedRow = await _dbContext.SaveChangesAsync();
       if(affectedRow <= 0)
@@ -69,15 +97,17 @@ public class BankRepository : IBankRepository
         throw new Exception("対象データが存在しません。");
       }
       // 対象データ更新
-      targetBank.Name = newBank.Name;
-      targetBank.Code = newBank.Code;
-      targetBank.BranchName = newBank.BranchName;
-      targetBank.BranchNumber = newBank.BranchNumber;
-      targetBank.AccountNumber = newBank.AccountNumber;      
+      targetBank.Name = newBank.BankInfo.Name;
+      targetBank.Code = newBank.BankInfo.Code;
+      targetBank.BranchName = newBank.BankInfo.BranchName;
+      targetBank.BranchNumber = newBank.BankInfo.BranchNumber;
+      targetBank.AccountNumber = newBank.BankInfo.AccountNumber;
+      targetBank.CategoryName = newBank.BankInfo.CategoryName;
+      targetBank.TotalAmount = newBank.BankInfo.TotalAmount;      
       var affectedRoew = await _dbContext.SaveChangesAsync();
       if(affectedRoew <= 0)
       {
-        throw new Exception("bank can not updated");
+        throw new Exception("編集できませんでした。前後でデータ内容が変化しているか確認してください。");
       }
     }
     catch(Exception e)
@@ -103,7 +133,7 @@ public class BankRepository : IBankRepository
         {
           throw new Exception("対象データが存在しません。");
         }
-        targetBank.TotalAmount = newBank.TotalAmount;
+        targetBank.TotalAmount = newBank.BankInfo.TotalAmount;
 
         var bankHistoryData = _mapper.Map<BankHistoryTable>(bankHistory);
         await _dbContext.BankHistoryTable.AddAsync(bankHistoryData);
@@ -124,11 +154,27 @@ public class BankRepository : IBankRepository
   /// </summary>
   /// <param name="bankId"></param>
   /// <returns></returns>
-  public async Task<Bank?> GetByIdAsync(uint bankId)
+  public async Task<Bank?> FetchByIdAsync(uint bankId)
   {
     var query = from banks in _dbContext.BankTable where banks.Id == bankId select banks;
     var bank = await query.FirstOrDefaultAsync();
-    return bank != null ?  Bank.FromRepository(bank.Id, bank.FamilyId, bank.FamilymemberId, bank.Name, bank.Code, bank.BranchNumber ?? default, bank.BranchName, bank.AccountNumber ?? default, bank.TotalAmount, bank.DeletedAt, bank.CreatedAt, bank.UpdatedAt) : null;
+    return bank != null ?  Bank.Reconstructor(
+      bank.Id, 
+      bank.FamilyId, 
+      bank.FamilymemberId, 
+      bank.OrderNumber,
+      BankInfo.Reconstruct(
+        bank.Name, 
+        bank.Code ?? "", 
+        bank.BranchNumber ?? default, 
+        bank.BranchName ?? "", 
+        bank.AccountNumber ?? default, 
+        bank.TotalAmount,
+        bank.CategoryName
+      ),
+      bank.DeletedAt, 
+      bank.CreatedAt, 
+      bank.UpdatedAt) : null;
   }
 
   /// <summary>
@@ -140,42 +186,40 @@ public class BankRepository : IBankRepository
   {
     try
     {
-      var query = from banks in _dbContext.BankTable where banks.FamilyId == familyId && banks.DeletedAt == Constant.DeletedAt select banks;
+      var query = from banks in _dbContext.BankTable where 
+                  banks.FamilyId == familyId && 
+                  banks.DeletedAt == Constant.DeletedAt
+                  orderby banks.OrderNumber ascending 
+                  select banks;
+                  
       var bankDataList = await query.ToListAsync();
       var bankList = bankDataList.Select(bank => 
-      Bank.FromRepository(
+      {
+        return Bank.Reconstructor(
         bank.Id, 
         bank.FamilyId, 
-        bank.FamilymemberId, 
-        bank.Name, 
-        bank.Code ?? "", 
-        bank.BranchNumber ?? default, 
-        bank.BranchName ?? "", 
-        bank.AccountNumber ?? default, 
-        bank.TotalAmount, 
+        bank.FamilymemberId,
+        bank.OrderNumber,
+        BankInfo.Reconstruct(
+          bank.Name, 
+          bank.Code ?? "", 
+          bank.BranchNumber ?? default, 
+          bank.BranchName ?? "", 
+          bank.AccountNumber ?? default, 
+          bank.TotalAmount,
+          bank.CategoryName
+          ),
         bank.DeletedAt, 
         bank.CreatedAt, 
         bank.UpdatedAt
-      )).ToList();
+      );
+      }).ToList();
       return bankList;
     }
     catch(Exception ex)
     {
       throw ex;
     }
-  }
-
-  /// <summary>
-  /// 銀行情報取得
-  /// </summary>
-  /// <param name="bankId"></param>
-  /// <returns></returns>
-  public async Task<Bank?> FetchDetail(uint bankId)
-  {
-    var query = from banks in _dbContext.BankTable where banks.Id == bankId && banks.DeletedAt == Constant.DeletedAt select banks;
-    var bankData = await query.FirstOrDefaultAsync();
-    var bank = bankData != null ? Bank.FromRepository(bankData.Id, bankData.FamilyId, bankData.FamilymemberId, bankData.Name, bankData.Code, bankData.BranchNumber ?? default, bankData.BranchName, bankData.AccountNumber ?? default, bankData.TotalAmount, bankData.DeletedAt, bankData.CreatedAt, bankData.UpdatedAt) : null;
-    return bank;
   }
 
 }

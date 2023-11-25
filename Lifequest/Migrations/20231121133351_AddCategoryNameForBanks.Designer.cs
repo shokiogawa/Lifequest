@@ -3,6 +3,7 @@ using System;
 using Lifequest.Src.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lifequest.Migrations
 {
     [DbContext(typeof(LifequestDbContext))]
-    partial class LifequestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231121133351_AddCategoryNameForBanks")]
+    partial class AddCategoryNameForBanks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

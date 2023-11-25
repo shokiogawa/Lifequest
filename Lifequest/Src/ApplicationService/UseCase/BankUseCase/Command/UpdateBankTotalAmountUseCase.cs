@@ -17,14 +17,14 @@ public class UpdateBankTotalAmountUseCase
   public async Task Invoke(UpdateBankTotalAmoutntCommand cm)
   {
     // 現在の銀行情報を取得
-    var targetBank = await _bankRepository.GetByIdAsync(cm.Id);
+    var targetBank = await _bankRepository.FetchByIdAsync(cm.Id);
     if(targetBank == null)
     {
       throw new Exception("対象データが存在しません");
     }
-    var newBankHistory = BankHistory.Create(targetBank.Id, targetBank.TotalAmount, cm.TotalAmount);
+    var newBankHistory = BankHistory.Create(targetBank.Id, targetBank.BankInfo.TotalAmount, cm.TotalAmount);
     // 銀行合計額を修正
-    targetBank.ChangeTotalAmount(cm.TotalAmount);
+    targetBank.UpdateTotalAmount(cm.TotalAmount);
     await _bankRepository.UpdateTotalAmount(targetBank, newBankHistory);
   }
 }

@@ -2,6 +2,12 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 namespace Lifequest.Src.ClientModel.ResponseModel;
 
+public class FixedCostListResponseModel
+{
+  [JsonPropertyName("fixed_costs")]
+  public List<FixedCostResponseModel> FixedCostList {get; set;} = new List<FixedCostResponseModel>();
+}
+
 public class FixedCostResponseModel
 {
   [JsonPropertyName("id")]

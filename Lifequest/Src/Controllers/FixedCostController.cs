@@ -6,10 +6,11 @@ using Lifequest.Src.Domain.Entity;
 using Lifequest.Src.ClientModel.ResponseModel;
 using Lifequest.Src.ClientModel.RequestModel;
 using Lifequest.Src.ApplicationService.UseCase.FixedCostUseCase.Command;
+using Lifequest.Src.ViewModel.ResponseModel;
 
 namespace Lifequest.Src.Controllers;
 
-[Authorize]
+// [Authorize]
 [ApiController]
 [Route("api/fixed_costs")]
 public class FixedCostController : ControllerBase
@@ -20,18 +21,19 @@ public class FixedCostController : ControllerBase
 
   private readonly FetchFixedCostByFamilyIdUseCase _fetchFixedCostByFamilyIdUseCase;
 
-  private readonly AuthUserContext _userContext;
+  // private readonly AuthUserContext _userContext;
   
   public FixedCostController(
     IMapper mapper, 
     CreateFixedCostUseCase createFixedCostUseCase,
-    FetchFixedCostByFamilyIdUseCase fetchFixedCostByFamilyIdUseCase,
-    AuthUserContext userContext)
+    FetchFixedCostByFamilyIdUseCase fetchFixedCostByFamilyIdUseCase
+    // AuthUserContext userContext
+    )
   {
     _createFixedCostUseCase = createFixedCostUseCase;
     _fetchFixedCostByFamilyIdUseCase = fetchFixedCostByFamilyIdUseCase;
     _mapper = mapper;
-    _userContext = userContext;
+    // _userContext = userContext;
   }
 
   /// <summary>
@@ -40,11 +42,30 @@ public class FixedCostController : ControllerBase
   /// <param name="familyId"></param>
   /// <returns></returns>
   [HttpGet]
-  public async Task<ActionResult<List<FixedCostResponseModel>>> GetAsync([FromQuery] uint familyId)
+  public async Task<ActionResult<BaseResponseModel<FixedCostListResponseModel>>> GetAsync([FromQuery] uint familyId)
   {
     var fixedCostList = await _fetchFixedCostByFamilyIdUseCase.Invoke(familyId);
-    var response = fixedCostList.Select(fixedCost => _mapper.Map<FixedCostResponseModel>(fixedCost)).ToList();
-    return response;
+    var fixedCostResponse = fixedCostList.Select(_ =>{
+      return new FixedCostResponseModel
+      {
+        Id = _.Id,
+        FamilyId = _.FamilyId,
+        Name = _.Name,
+        Expose = _.Expose,
+        CreatedAt = _.CreatedAt,
+        UpdatedAt = _.UpdatedAt,
+        DeletedAt = _.DeletedAt
+      };
+    }).ToList();
+
+    var responseList = new FixedCostListResponseModel{FixedCostList = fixedCostResponse};
+    var baseResponse = new BaseResponseModel<FixedCostListResponseModel>
+    {
+      Status = "success",
+      Data = responseList,
+      Message = ""
+    };
+    return baseResponse;
   }
 
   /// <summary>

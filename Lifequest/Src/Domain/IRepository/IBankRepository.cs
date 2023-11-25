@@ -29,7 +29,7 @@ public interface IBankRepository
   /// </summary>
   /// <param name="bankId"></param>
   /// <returns></returns>
-  Task<Bank?> GetByIdAsync(uint bankId);
+  Task<Bank?> FetchByIdAsync(uint bankId);
 
   /// <summary>
   /// 家族IDを基にデータ取得API
@@ -38,12 +38,4 @@ public interface IBankRepository
   /// <returns></returns>
 
   Task<List<Bank>> FetchListByFamilyId(uint familyId);
-
-  /// <summary>
-  /// 銀行詳細データ取得API
-  /// </summary>
-  /// <param name="bankId"></param>
-  /// <returns></returns>
-
-  Task<Bank?> FetchDetail(uint bankId);
 }

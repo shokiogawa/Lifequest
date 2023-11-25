@@ -1,7 +1,8 @@
 namespace Lifequest.Src.ApplicationService.UseCase.BankUseCase.Command;
 
-public class CreateBankCommand
+public class UpdateBankUseCaseCommand
 {
+  public uint Id {get; set;}
   public uint FamilyId {get; set;}
 
   public uint FamilymemberId {get; set;}

@@ -23,15 +23,17 @@ public class FetchBankListByFamilyIdUseCase
         _.Id,
         _.FamilyId, 
         _.FamilymemberId, 
-        _.Name, 
-        _.Code ?? "", 
-        _.BranchNumber, 
-        _.BranchName ?? "",
-        _.AccountNumber, 
-        _.TotalAmount, 
+        _.BankInfo.CategoryName,
+        _.OrderNumber,
+        _.BankInfo.Name, 
+        _.BankInfo.Code ?? "", 
+        _.BankInfo.BranchNumber, 
+        _.BankInfo.BranchName ?? "",
+        _.BankInfo.AccountNumber, 
+        _.BankInfo.TotalAmount, 
         _.DeletedAt, 
-        _.UpdatedAt, 
-        _.CreatedAt);
+        _.CreatedAt, 
+        _.UpdatedAt);
     }).ToList();
   }
 }

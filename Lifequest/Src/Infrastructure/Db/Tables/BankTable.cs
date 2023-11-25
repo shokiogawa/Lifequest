@@ -40,6 +40,12 @@ public class BankTable
   [Column("total_amount")]
   public uint TotalAmount {get; set;}
 
+  [Column("category_name")]
+  public string CategoryName {get; set;}
+
+  [Column("order_number")]
+  public uint OrderNumber{get; set;}
+
   [Column("deleted_at")]
   public DateTime DeletedAt {get; set;}
 

@@ -10,6 +10,8 @@ public class FixedCost
   public uint FamilyId {get; private set;}
   public string Name {get; private set;}
   public uint Expose {get; private set;}
+  public string Category {get; private set;}
+  public DateTime TargetDate { get; private set;}
   public DateTime DeletedAt {get; private set;}
   public DateTime CreatedAt {get; private set;}
   public DateTime UpdatedAt {get; private set;}

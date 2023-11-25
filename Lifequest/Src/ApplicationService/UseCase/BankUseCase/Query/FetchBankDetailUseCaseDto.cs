@@ -1,7 +1,9 @@
+using System.Globalization;
+
 namespace Lifequest.Src.ApplicationService.UseCase.BankUseCase.Query;
 
 //単体
-public class FetchBankListByFamilyIdUseCaseDto
+public class FetchBankDetailUseCaseDto
 {
   public uint Id {get; private set;}
   public uint FamilyId {get; private set;}
@@ -11,7 +13,6 @@ public class FetchBankListByFamilyIdUseCaseDto
   public string CategoryName {get; private set;}
 
   public uint OrderNumber {get; set;}
-  
   public string Name {get; private set;}
   public string? Code {get; private set;} = "";
 
@@ -24,25 +25,10 @@ public class FetchBankListByFamilyIdUseCaseDto
   public DateTime CreatedAt {get; private set;}
   public DateTime UpdatedAt {get; private set;}
 
-  /// <summary>
-  /// 
-  /// </summary>
-  /// <param name="id"></param>
-  /// <param name="familyId"></param>
-  /// <param name="familyMemberId"></param>
-  /// <param name="name"></param>
-  /// <param name="code"></param>
-  /// <param name="branchNumber"></param>
-  /// <param name="branchName"></param>
-  /// <param name="accountNumber"></param>
-  /// <param name="totalAmount"></param>
-  /// <param name="deletedAt"></param>
-  /// <param name="createdAt"></param>
-  /// <param name="updatedAt"></param>
-  public FetchBankListByFamilyIdUseCaseDto(
+  public FetchBankDetailUseCaseDto(
     uint id, 
     uint familyId, 
-    uint familyMemberId, 
+    uint familyMemberId,
     string categoryName,
     uint orderNumber,
     string name, 
@@ -67,8 +53,8 @@ public class FetchBankListByFamilyIdUseCaseDto
     AccountNumber = accountNumber;
     TotalAmount = totalAmount;
     DeletedAt = deletedAt;
-    UpdatedAt = updatedAt;
     CreatedAt = createdAt;
+    UpdatedAt = updatedAt;
   }
 
 }

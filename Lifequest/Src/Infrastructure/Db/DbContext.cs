@@ -20,6 +20,8 @@ public class LifequestDbContext : DbContext
   public DbSet<SecurityAccountAmmountTable> SecurityAccountAmmountTable {get;set;}
 
   public DbSet<FixedCostTable> FixedCostTable {get; set;}
+
+  public DbSet<BankCategoriesMst> BankCategoriesMstTable {get; set;}
   readonly MySqlServerVersion serverVersion = new (new Version(5, 7, 0));
   public LifequestDbContext(DbContextOptions<LifequestDbContext> oprions) : base (oprions)
   {
