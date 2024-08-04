@@ -6,6 +6,7 @@ using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase.Command;
 using Lifequest.Src.ViewModel.ResponseModel;
 using Lifequest.Src.Domain.Entity;
 using Lifequest.Src.ClientModel.RequestModel;
+using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase.Query;
 namespace Lifequest.Src.Controllers;
 
 [ApiController]
@@ -16,17 +17,23 @@ public class FamilyController : ControllerBase
 
   private readonly AddFamilyMemberUseCase _addFamilyMemberUseCase;
 
-  private readonly AuthUserContext _userContext;
+  private readonly FetchFamilyListUseCase _fetchFamilyListUseCase;
 
-  private readonly IFamilyQueryService _familyQueryService;
+  // private readonly AuthUserContext _userContext;
+
   private readonly IMapper _mapper;
   
-  public FamilyController(CreateFamilyUseCase createFamilyUseCase, AddFamilyMemberUseCase addFamilyMemberUseCase,IFamilyQueryService familyQueryService,AuthUserContext userContext ,IMapper mapper)
+  public FamilyController(
+    CreateFamilyUseCase createFamilyUseCase, 
+    AddFamilyMemberUseCase addFamilyMemberUseCase,
+    FetchFamilyListUseCase fetchFamilyListUseCase,
+    // AuthUserContext userContext,
+    IMapper mapper)
   {
     _createFamilyUseCase = createFamilyUseCase;
     _addFamilyMemberUseCase = addFamilyMemberUseCase;
-    _familyQueryService = familyQueryService;
-    _userContext = userContext;
+    _fetchFamilyListUseCase = fetchFamilyListUseCase;
+    // _userContext = userContext;
     _mapper = mapper;
   }
 
@@ -35,15 +42,24 @@ public class FamilyController : ControllerBase
   /// </summary>
   /// <returns></returns>
   [HttpGet]
-  public async Task<ActionResult<FamilyInfoListResponseModel>> GetListAsync()
+  public async Task<ActionResult<BaseResponseModel<FamilyInfoListResponseModel>>> GetListAsync([FromQuery] uint userId)
   {
-    var uuid = _userContext.Uid;
-    Console.WriteLine(uuid);
-    var familyList = await _familyQueryService.GetList(uuid);
-    var familyInfoResponseModel = familyList.Select(familyInfo => _mapper.Map<FamilyInfoResponseModel>(familyInfo)).ToList();
-    return new FamilyInfoListResponseModel
+    var familyList = await _fetchFamilyListUseCase.Invoke(userId);
+    var familyInfoResponseModel = familyList.Select(_ => 
+    new FamilyInfoResponseModel
     {
-      FamilyList = familyInfoResponseModel
+      FamilyId = _.FamilyId,
+      FamilyName = _.FamilyName,
+      Position = _.Position,
+      IsOwner = _.IsOwner
+    }).ToList();
+    return new BaseResponseModel<FamilyInfoListResponseModel>
+    {
+      Status = "success",
+      Data = new FamilyInfoListResponseModel
+      {
+        FamilyList = familyInfoResponseModel
+      }
     };
   }
 
@@ -57,17 +73,12 @@ public class FamilyController : ControllerBase
   {
     var cm = new CreateFamilyCommand
     {
-      Id = request.Id,
       Name = request.Name,
       FamilyMembers = request.FamilyMembers.Select(_ => new CreateFamilyMemberCommand
       {
         UserId = _.UserId,
-        FamilyId = _.FamilyId,
         IsOwner = _.IsOwner,
-        Position = _.Position,
-        CreatedAt = _.CreatedAt,
-        UpdatedAt = _.UpdatedAt,
-        DeletedAt = _.DeletedAt
+        Position = _.Position
       }).ToList()
     };
     await _createFamilyUseCase.Invoke(cm);

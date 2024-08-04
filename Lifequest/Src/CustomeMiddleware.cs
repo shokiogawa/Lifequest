@@ -12,6 +12,7 @@ using Lifequest.Src.ApplicationService.UseCase.ScheduleUseCase.Query;
 using Lifequest.Src.ApplicationService.UseCase.UserUseCase.Query;
 using Lifequest.Src.ApplicationService.UseCase.FixedCostUseCase.Query;
 using Lifequest.Src.Domain.Entity;
+using Lifequest.Src.ApplicationService.UseCase.ExpenseAndIncomeUseCase.Command;
 namespace Lifequest.Src;
 public class CustomeMiddleware
 {
@@ -41,23 +42,28 @@ public static class CustomeMiddlewareExtensions
   {
     // アクセスユーザーの情報を取得
     services.AddScoped<AuthUserContext>();
+
     // repository
     services.AddScoped<IUserRepository, UserRepository>();
     services.AddScoped<IBankRepository, BankRepository>();
     services.AddScoped<IFamilyRepository, FamilyRepository>();
     services.AddScoped<IFixedCostRepository, FixedCostRepository>();
     services.AddScoped<IScheduleRepository, ScheduleRepository>();
+    services.AddScoped<IExpenseAndIncomeRepository, ExpenseAndIncomeRepository>();
+
     // query service
     services.AddScoped<IUserQueryService, UserQueryService>();
     services.AddScoped<IBankQueryService, BankQueryService>();
     services.AddScoped<IFixedCostQueryService, FixedCostQueryService>();
     services.AddScoped<IScheduleQueryService, ScheduleQueryService>();
     services.AddScoped<IFamilyQueryService, FamilyQueryService>();
+
     // usecase
     services.AddScoped<CreateUserUseCase>();
     services.AddScoped<CreateFamilyUseCase>();
     services.AddScoped<CreateBankUseCase>();
     services.AddScoped<CreateFixedCostUseCase>();
+    services.AddScoped<CreatexpenseAndIncomeUsecase>();
     services.AddScoped<UpdateBankTotalAmountUseCase>();
     services.AddScoped<UpdateBankUseCase>();
     services.AddScoped<CreateScheduleUseCase>();

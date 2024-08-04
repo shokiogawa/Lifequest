@@ -3,7 +3,7 @@ namespace Lifequest.Src.ViewModel.ResponseModel;
 
 public class FamilyInfoListResponseModel
 {
-  [JsonPropertyName("family_list")]
+  [JsonPropertyName("families")]
   public List<FamilyInfoResponseModel> FamilyList {get; set;} = default!;
 }
 

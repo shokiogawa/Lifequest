@@ -41,3 +41,23 @@
 ```c#
 var uid = User.Claims.Where(_ => _.Type == "user_id").First().Value;
 ```
+
+# マイグレーション
+
+1. ファイル作成
+
+```
+dotnet ef migrations add <Migration名>
+```
+
+2. DB に反映
+
+```
+dotnet ef database update
+
+```
+
+```mermaid
+
+
+```

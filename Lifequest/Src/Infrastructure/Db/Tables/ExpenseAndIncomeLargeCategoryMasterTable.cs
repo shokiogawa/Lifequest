@@ -1,30 +1,19 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lifequest.Src.Infrastructure.Db.Tables;
 
-[Table("fixed_costs")]
-public class FixedCostTable 
-{
+[Table("expense_and_income_large_category_master")]
+public class ExpenseAndIncomeLargeCategoryMasterTable{
   [Key]
   [Required]
   [Column("id")]
-  public uint Id {get; set;}
+  public ulong Id {get; set;}
 
   [Required]
-  [Column("family_id")]
-  public uint FamilyId {get ;set;}
-
-  [Required]
-  [Comment("固定費")]
-  [Column("name", TypeName = "VARCHAR(128)")]
-  public string Name {get; set;}
-
-  [Required]
-  [Comment("支出")]
-  [Column("expense")]
-  public uint Expose {get; set;}
+  [MaxLength(32)]
+  [Column("large_category_name")]
+  public string LargeCategoryName {get; set;} = "";
 
   [Column("deleted_at")]
   public DateTime DeletedAt {get; set;}

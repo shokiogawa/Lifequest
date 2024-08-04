@@ -18,7 +18,7 @@ public class CreateFamilyUseCase
   public async Task Invoke (CreateFamilyCommand cm)
   {
     // トランザクションを貼る
-    using (var transactionScope = new TransactionScope())
+    using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
     {
     // 1. 家族とそのメンバーを作成
     var family = Family.Create(cm.Name);

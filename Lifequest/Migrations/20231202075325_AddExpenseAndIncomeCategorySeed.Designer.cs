@@ -3,6 +3,7 @@ using System;
 using Lifequest.Src.Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lifequest.Migrations
 {
     [DbContext(typeof(LifequestDbContext))]
-    partial class LifequestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231202075325_AddExpenseAndIncomeCategorySeed")]
+    partial class AddExpenseAndIncomeCategorySeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,9 +165,9 @@ namespace Lifequest.Migrations
 
             modelBuilder.Entity("Lifequest.Src.Infrastructure.Db.Tables.ExpenseAndIncomeLargeCategoryMasterTable", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<uint>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("int unsigned")
                         .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
@@ -195,7 +197,7 @@ namespace Lifequest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1ul,
+                            Id = 1u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "食費",
@@ -203,7 +205,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 2ul,
+                            Id = 2u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "日用雑貨",
@@ -211,7 +213,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 3ul,
+                            Id = 3u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "交通",
@@ -219,7 +221,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 4ul,
+                            Id = 4u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "交際費",
@@ -227,7 +229,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 5ul,
+                            Id = 5u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "エンタメ",
@@ -235,7 +237,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 6ul,
+                            Id = 6u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "教育・教養",
@@ -243,7 +245,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 7ul,
+                            Id = 7u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "美容・服",
@@ -251,7 +253,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 8ul,
+                            Id = 8u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "医療・保険",
@@ -259,7 +261,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 9ul,
+                            Id = 9u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "通信",
@@ -267,7 +269,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 10ul,
+                            Id = 10u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "水道・光熱費",
@@ -275,7 +277,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 11ul,
+                            Id = 11u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "住まい",
@@ -283,7 +285,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 12ul,
+                            Id = 12u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "車",
@@ -291,7 +293,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 13ul,
+                            Id = 13u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "税金",
@@ -299,7 +301,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 14ul,
+                            Id = 14u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "大型出費",
@@ -307,7 +309,7 @@ namespace Lifequest.Migrations
                         },
                         new
                         {
-                            Id = 15ul,
+                            Id = 15u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LargeCategoryName = "その他",
@@ -317,9 +319,9 @@ namespace Lifequest.Migrations
 
             modelBuilder.Entity("Lifequest.Src.Infrastructure.Db.Tables.ExpenseAndIncomeSmallCategoryMasterTable", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<uint>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("int unsigned")
                         .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
@@ -331,8 +333,8 @@ namespace Lifequest.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("deleted_at");
 
-                    b.Property<ulong>("ExpenseAndIncomeLargeCategoryId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<uint>("ExpenseAndIncomeLargeCategoryId")
+                        .HasColumnType("int unsigned")
                         .HasColumnName("expense_and_income_large_category_id");
 
                     b.Property<string>("SmallCategoryName")
@@ -353,442 +355,442 @@ namespace Lifequest.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1ul,
+                            Id = 1u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 1ul,
+                            ExpenseAndIncomeLargeCategoryId = 1u,
                             SmallCategoryName = "食料品",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2ul,
+                            Id = 2u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 1ul,
+                            ExpenseAndIncomeLargeCategoryId = 1u,
                             SmallCategoryName = "カフェ",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3ul,
+                            Id = 3u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 1ul,
+                            ExpenseAndIncomeLargeCategoryId = 1u,
                             SmallCategoryName = "朝ご飯",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 4ul,
+                            Id = 4u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 1ul,
+                            ExpenseAndIncomeLargeCategoryId = 1u,
                             SmallCategoryName = "昼ご飯",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 5ul,
+                            Id = 5u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 1ul,
+                            ExpenseAndIncomeLargeCategoryId = 1u,
                             SmallCategoryName = "晩ご飯",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 6ul,
+                            Id = 6u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 1ul,
+                            ExpenseAndIncomeLargeCategoryId = 1u,
                             SmallCategoryName = "その他",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 7ul,
+                            Id = 7u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 2ul,
+                            ExpenseAndIncomeLargeCategoryId = 2u,
                             SmallCategoryName = "消耗品",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 8ul,
+                            Id = 8u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 2ul,
+                            ExpenseAndIncomeLargeCategoryId = 2u,
                             SmallCategoryName = "子ども関連",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 9ul,
+                            Id = 9u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 2ul,
+                            ExpenseAndIncomeLargeCategoryId = 2u,
                             SmallCategoryName = "ペット関連",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 10ul,
+                            Id = 10u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 2ul,
+                            ExpenseAndIncomeLargeCategoryId = 2u,
                             SmallCategoryName = "タバコ",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 11ul,
+                            Id = 11u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 2ul,
+                            ExpenseAndIncomeLargeCategoryId = 2u,
                             SmallCategoryName = "その他",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 12ul,
+                            Id = 12u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 3ul,
+                            ExpenseAndIncomeLargeCategoryId = 3u,
                             SmallCategoryName = "電車",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 13ul,
+                            Id = 13u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 3ul,
+                            ExpenseAndIncomeLargeCategoryId = 3u,
                             SmallCategoryName = "タクシー",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 14ul,
+                            Id = 14u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 3ul,
+                            ExpenseAndIncomeLargeCategoryId = 3u,
                             SmallCategoryName = "バス",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 15ul,
+                            Id = 15u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 3ul,
+                            ExpenseAndIncomeLargeCategoryId = 3u,
                             SmallCategoryName = "飛行機",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 16ul,
+                            Id = 16u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 3ul,
+                            ExpenseAndIncomeLargeCategoryId = 3u,
                             SmallCategoryName = "その他",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 17ul,
+                            Id = 17u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 4ul,
+                            ExpenseAndIncomeLargeCategoryId = 4u,
                             SmallCategoryName = "飲み会",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 18ul,
+                            Id = 18u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 4ul,
+                            ExpenseAndIncomeLargeCategoryId = 4u,
                             SmallCategoryName = "プレゼント",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 19ul,
+                            Id = 19u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 4ul,
+                            ExpenseAndIncomeLargeCategoryId = 4u,
                             SmallCategoryName = "ご祝儀・香典",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 20ul,
+                            Id = 20u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 4ul,
+                            ExpenseAndIncomeLargeCategoryId = 4u,
                             SmallCategoryName = "その他",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 21ul,
+                            Id = 21u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 5ul,
+                            ExpenseAndIncomeLargeCategoryId = 5u,
                             SmallCategoryName = "レジャー",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 22ul,
+                            Id = 22u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 5ul,
+                            ExpenseAndIncomeLargeCategoryId = 5u,
                             SmallCategoryName = "イベント",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 23ul,
+                            Id = 23u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 5ul,
+                            ExpenseAndIncomeLargeCategoryId = 5u,
                             SmallCategoryName = "映画・動画",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 24ul,
+                            Id = 24u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 5ul,
+                            ExpenseAndIncomeLargeCategoryId = 5u,
                             SmallCategoryName = "音楽",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 25ul,
+                            Id = 25u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 5ul,
+                            ExpenseAndIncomeLargeCategoryId = 5u,
                             SmallCategoryName = "漫画",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 26ul,
+                            Id = 26u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 5ul,
+                            ExpenseAndIncomeLargeCategoryId = 5u,
                             SmallCategoryName = "書籍",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 27ul,
+                            Id = 27u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 5ul,
+                            ExpenseAndIncomeLargeCategoryId = 5u,
                             SmallCategoryName = "ゲーム",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 28ul,
+                            Id = 28u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 5ul,
+                            ExpenseAndIncomeLargeCategoryId = 5u,
                             SmallCategoryName = "その他",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 29ul,
+                            Id = 29u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 6ul,
+                            ExpenseAndIncomeLargeCategoryId = 6u,
                             SmallCategoryName = "習い事",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 30ul,
+                            Id = 30u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 6ul,
+                            ExpenseAndIncomeLargeCategoryId = 6u,
                             SmallCategoryName = "新聞",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 31ul,
+                            Id = 31u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 6ul,
+                            ExpenseAndIncomeLargeCategoryId = 6u,
                             SmallCategoryName = "参考書",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 32ul,
+                            Id = 32u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 6ul,
+                            ExpenseAndIncomeLargeCategoryId = 6u,
                             SmallCategoryName = "受験料",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 33ul,
+                            Id = 33u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 6ul,
+                            ExpenseAndIncomeLargeCategoryId = 6u,
                             SmallCategoryName = "学費",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 34ul,
+                            Id = 34u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 6ul,
+                            ExpenseAndIncomeLargeCategoryId = 6u,
                             SmallCategoryName = "学質保険",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 35ul,
+                            Id = 35u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 6ul,
+                            ExpenseAndIncomeLargeCategoryId = 6u,
                             SmallCategoryName = "塾",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 36ul,
+                            Id = 36u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 6ul,
+                            ExpenseAndIncomeLargeCategoryId = 6u,
                             SmallCategoryName = "その他",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 37ul,
+                            Id = 37u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 7ul,
+                            ExpenseAndIncomeLargeCategoryId = 7u,
                             SmallCategoryName = "洋服",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 38ul,
+                            Id = 38u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 7ul,
+                            ExpenseAndIncomeLargeCategoryId = 7u,
                             SmallCategoryName = "アクセサリー・小物",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 39ul,
+                            Id = 39u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 7ul,
+                            ExpenseAndIncomeLargeCategoryId = 7u,
                             SmallCategoryName = "下着",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 40ul,
+                            Id = 40u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 7ul,
+                            ExpenseAndIncomeLargeCategoryId = 7u,
                             SmallCategoryName = "ジム・健康",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 41ul,
+                            Id = 41u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 7ul,
+                            ExpenseAndIncomeLargeCategoryId = 7u,
                             SmallCategoryName = "美容院",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 42ul,
+                            Id = 42u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 7ul,
+                            ExpenseAndIncomeLargeCategoryId = 7u,
                             SmallCategoryName = "コスメ",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 43ul,
+                            Id = 43u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 7ul,
+                            ExpenseAndIncomeLargeCategoryId = 7u,
                             SmallCategoryName = "エスト・メイル",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 44ul,
+                            Id = 44u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 7ul,
+                            ExpenseAndIncomeLargeCategoryId = 7u,
                             SmallCategoryName = "クリーニング",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 45ul,
+                            Id = 45u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 7ul,
+                            ExpenseAndIncomeLargeCategoryId = 7u,
                             SmallCategoryName = "その他",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 46ul,
+                            Id = 46u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 14ul,
+                            ExpenseAndIncomeLargeCategoryId = 14u,
                             SmallCategoryName = "旅行",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 47ul,
+                            Id = 47u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 14ul,
+                            ExpenseAndIncomeLargeCategoryId = 14u,
                             SmallCategoryName = "結婚",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 48ul,
+                            Id = 48u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 14ul,
+                            ExpenseAndIncomeLargeCategoryId = 14u,
                             SmallCategoryName = "その他",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 49ul,
+                            Id = 49u,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpenseAndIncomeLargeCategoryId = 15ul,
+                            ExpenseAndIncomeLargeCategoryId = 15u,
                             SmallCategoryName = "その他",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -796,9 +798,9 @@ namespace Lifequest.Migrations
 
             modelBuilder.Entity("Lifequest.Src.Infrastructure.Db.Tables.ExpenseAndIncomeTable", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<uint>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("int unsigned")
                         .HasColumnName("id");
 
                     b.Property<uint>("Amount")
@@ -814,20 +816,20 @@ namespace Lifequest.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("deleted_at");
 
-                    b.Property<ulong>("ExpenseAndIncomeLargeCategoryId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<uint>("ExpenseAndIncomeLargeCategoryId")
+                        .HasColumnType("int unsigned")
                         .HasColumnName("expense_and_income_large_category_id");
 
-                    b.Property<ulong>("ExpenseAndIncomeSmallCategoryId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<uint>("ExpenseAndIncomeSmallCategoryId")
+                        .HasColumnType("int unsigned")
                         .HasColumnName("expense_and_income_small_category_id");
 
-                    b.Property<ulong>("FamilyId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<uint>("FamilyId")
+                        .HasColumnType("int unsigned")
                         .HasColumnName("family_id");
 
-                    b.Property<ulong>("FamilyMemberId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<uint>("FamilyMemberId")
+                        .HasColumnType("int unsigned")
                         .HasColumnName("family_member_id");
 
                     b.Property<string>("LargeCategoryName")
@@ -852,10 +854,6 @@ namespace Lifequest.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
-
-                    b.Property<bool>("isExpense")
-                        .HasColumnType("tinyint(1)")
-                        .HasColumnName("is_expense");
 
                     b.HasKey("Id");
 

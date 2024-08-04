@@ -78,7 +78,7 @@ public class BankRepository : IBankRepository
       }
     catch(Exception e)
     {
-      throw e;
+      throw ;
     }
   }
 

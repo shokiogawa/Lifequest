@@ -8,19 +8,17 @@ public class FetchFamilyListUseCase
   private readonly IMapper _mapper;
   private readonly IFamilyQueryService _familyQueryService;
 
-  private readonly AuthUserContext _userContext;
 
-  public FetchFamilyListUseCase(IMapper mapper, IFamilyQueryService familyQueryService, AuthUserContext userContext)
+  public FetchFamilyListUseCase(IMapper mapper, IFamilyQueryService familyQueryService)
   {
     _mapper = mapper;
     _familyQueryService = familyQueryService;
-    _userContext = userContext;
   }
 
-  public async Task<List<FetchFamilyListUseCaseDto>> Invoke()
+  public async Task<List<FetchFamilyListUseCaseDto>> Invoke(uint userId)
   {
-    var uuid = _userContext.Uid;
-    var value = await _familyQueryService.GetList(uuid);
+    // var uuid = _userContext.Uid;
+    var value = await _familyQueryService.FetchListByUserId(userId);
     return value;
   }
 }

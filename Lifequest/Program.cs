@@ -124,6 +124,7 @@ builder.Services.AddDbContext<LifequestDbContext>(options =>
 builder.Services.AddInitialized();
 // コントローラー
 builder.Services.AddControllers();
+builder.Services.AddDateOnlyTimeOnlyStringConverters();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

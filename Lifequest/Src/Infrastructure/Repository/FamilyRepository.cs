@@ -39,8 +39,6 @@ public class FamilyRepository : IFamilyRepository
   /// </returns>
   public async Task<uint> Create(Family family)
   {
-    using (var transaction = await _dbContext.Database.BeginTransactionAsync())
-    {
         // family登録
         var familyData = _mapper.Map<FamilyTable>(family);
         await _dbContext.FamilyTable.AddAsync(familyData);
@@ -51,7 +49,6 @@ public class FamilyRepository : IFamilyRepository
         }
         var familyId = await GetNewFamilyId();
         return familyId;
-    }
   }
 
   /// <summary>

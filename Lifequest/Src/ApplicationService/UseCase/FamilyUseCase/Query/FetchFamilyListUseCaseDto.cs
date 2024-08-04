@@ -8,7 +8,7 @@ public class FetchFamilyListUseCaseDto
 
   public bool IsOwner {get; set;}
 
-  public List<FamilyMemberDto> FamilyMambers {get; set;} = default!;
+  public List<FamilyMemberDto> FamilyMambers {get; set;} = new List<FamilyMemberDto>();
 }
 
 public class FamilyMemberDto

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Lifequest.Src.ApplicationService.IQueryService;
 using Lifequest.Src.ApplicationService.UseCase.FamilyUseCase.Query;
+using System.Runtime.Intrinsics.X86;
 namespace Lifequest.Src.Infrastructure.Repository;
 
 public class FamilyQueryService : IFamilyQueryService
@@ -15,7 +16,13 @@ public class FamilyQueryService : IFamilyQueryService
     _dbContext = dbContext;
     _mapper = mapper;
   }
-    public async Task<List<FetchFamilyListUseCaseDto>> GetList(string uuid)
+
+  /// <summary>
+  /// ユーザーuuidを元に家族リストと、メンバーを取得するメソッド
+  /// </summary>
+  /// <param name="uuid"></param>
+  /// <returns></returns>
+    public async Task<List<FetchFamilyListUseCaseDto>> FetchListByUuid(string uuid)
   {
     var query = 
     from loginUser in _dbContext.UserTable
@@ -61,5 +68,26 @@ public class FamilyQueryService : IFamilyQueryService
       }).ToList()
     }).ToList();
     return familyList;
+  }
+
+  /// <summary>
+  /// userIdを元に家族IDを取得するメソッド
+  /// </summary>
+  /// <param name="userId"></param>
+  /// <returns></returns>
+  public async Task<List<FetchFamilyListUseCaseDto>> FetchListByUserId(uint userId)
+  {
+    var query = from u in _dbContext.UserTable 
+    join fm in _dbContext.FamilyMembersTable on new {UserId = u.Id, u.DeletedAt} equals new {fm.UserId, fm.DeletedAt}
+    join f in _dbContext.FamilyTable on new {Id = fm.FamilyId, fm.DeletedAt} equals new {f.Id, f.DeletedAt}
+    select new FetchFamilyListUseCaseDto
+    {
+      FamilyId = f.Id,
+      FamilyName = f.Name,
+      Position = fm.Position,
+      IsOwner = fm.IsOwner
+    };
+
+    return await query.ToListAsync();
   }
 }
